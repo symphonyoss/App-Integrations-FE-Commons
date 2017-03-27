@@ -1,0 +1,42 @@
+#
+#
+# Copyright 2016 The Symphony Software Foundation
+#
+# Licensed to The Symphony Software Foundation (SSF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+
+sudo: required
+dist: trusty
+language: node_js
+node_js:
+  - "6.10"  
+
+before_script:
+- npm install -g node-license-validator
+- npm install -g semantic-release
+
+script:
+# Install npm dependencies
+- "if [[ \"$TRAVIS_PULL_REQUEST\" = \"false\" && $TRAVIS_BRANCH =~ npm-publish-webapp-repo ]]; then npm install ; fi"
+# Run tests
+- "if [[ \"$TRAVIS_PULL_REQUEST\" = \"false\" && $TRAVIS_BRANCH =~ npm-publish-webapp-repo ]]; then npm run test ; fi"
+# Validate npmjs licenses
+- "if [[ \"$TRAVIS_PULL_REQUEST\" = \"false\" && $TRAVIS_BRANCH =~ npm-publish-webapp-repo ]]; then npm run license-check ; fi"
+
+# Deploy to npmjs.org using semantic-release; make sure that NPM_TOKEN and GH_TOKEN are set on Travis settings
+after_success: "if [[ \"$TRAVIS_PULL_REQUEST\" = \"false\" && $TRAVIS_BRANCH =~ npm-publish-webapp-repo ]]; then npm run semantic-release ; fi"

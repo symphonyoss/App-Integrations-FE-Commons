@@ -1,0 +1,10 @@
+# Maven
+target/
+
+# Intellij
+.idea
+*.iml
+
+# NPM
+node_modules/
+
