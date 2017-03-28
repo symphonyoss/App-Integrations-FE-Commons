@@ -26,9 +26,6 @@ language: node_js
 node_js:
   - "6.10"  
 
-before_install:
-  - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
-
 before_script:
 - npm install -g node-license-validator
 - npm install -g semantic-release
