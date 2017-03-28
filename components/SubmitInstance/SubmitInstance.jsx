@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unused-prop-types */
+
 import React, { PropTypes, Component } from 'react';
 import { hashHistory } from 'react-router';
 import {

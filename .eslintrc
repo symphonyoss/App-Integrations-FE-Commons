@@ -1,4 +1,4 @@
-module.exports = {
+{
     "extends": "airbnb",
     "globals": {
       "window": true,
@@ -23,5 +23,5 @@ module.exports = {
       "import/no-named-as-default": "warn",
       "array-callback-return": "warn",
       "import/prefer-default-export": "warn",
-    },
-};
+    }
+}
