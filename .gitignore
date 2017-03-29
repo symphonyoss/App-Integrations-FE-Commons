@@ -1,2 +1,6 @@
+# NPM logs
+npm-debug.log*
+
+# Target directories
 node_modules/
 dist/
