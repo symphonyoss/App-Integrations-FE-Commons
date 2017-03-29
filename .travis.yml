@@ -33,8 +33,6 @@ before_script:
 script:
 # Install npm dependencies
 - "if [[ \"$TRAVIS_PULL_REQUEST\" = \"false\" && $TRAVIS_BRANCH =~ dev ]]; then npm install ; fi"
-# Run tests
-- "if [[ \"$TRAVIS_PULL_REQUEST\" = \"false\" && $TRAVIS_BRANCH =~ dev ]]; then npm run test ; fi"
 # Validate npmjs licenses
 - "if [[ \"$TRAVIS_PULL_REQUEST\" = \"false\" && $TRAVIS_BRANCH =~ dev ]]; then npm run license-check ; fi"
 
