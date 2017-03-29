@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 import React, { Component, PropTypes } from 'react';
 import './styles/styles.less';
 
@@ -10,18 +11,18 @@ export class Spinner extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.loading !== nextProps.loading) {
-      if (!nextProps.loading) {
+    // if (this.props.loading !== nextProps.loading) {
+    if (!nextProps.loading) {
+      this.setState({
+        style: 'spinner spinner-opacity-0',
+      });
+      setTimeout(() => {
         this.setState({
-          style: 'spinner spinner-opacity-0',
+          style: 'spinner spinner-opacity-0 spinner-height-0',
         });
-        setTimeout(() => {
-          this.setState({
-            style: 'spinner spinner-opacity-0 spinner-height-0',
-          });
-        }, 700);
-      }
+      }, 700);
     }
+    // }
   }
 
   render() {

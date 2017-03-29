@@ -1,5 +1,3 @@
-/* eslint-disable react/no-unused-prop-types */
-
 import React, { PropTypes, Component } from 'react';
 import { hashHistory } from 'react-router';
 import {
@@ -40,14 +38,16 @@ export class SubmitInstance extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.saved) {
-      if (nextProps.operation === 'CREATE' || nextProps.operation === 'UPDATE') {
-        hashHistory.push('/instance-created');
-      } else if (nextProps.operation === 'REMOVE') {
+    if (this.props.saved !== nextProps.saved) {
+      if (nextProps.saved) {
+        if (nextProps.operation === 'CREATE' || nextProps.operation === 'UPDATE') {
+          hashHistory.push('/instance-created');
+        } else if (nextProps.operation === 'REMOVE') {
+          hashHistory.push('/');
+        }
+      } else {
         hashHistory.push('/');
       }
-    } else {
-      hashHistory.push('/');
     }
   }
 
