@@ -247,8 +247,7 @@ export class SuggestionsRooms extends Component {
               type='text'
               onChange={this.onChangeSearch}
               ref={(input) => { this.input = input; }}
-              // placeholder={this.props.loading ? 'Loading...' : 'Search rooms'}
-              placeholder='Search rooms'
+              placeholder={this.props.loading ? 'Loading...' : 'Search rooms'}
             />
             <button onClick={this.clearInput}>
               <i className='fa fa-times' />

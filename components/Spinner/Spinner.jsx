@@ -11,7 +11,6 @@ export class Spinner extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // if (this.props.loading !== nextProps.loading) {
     if (!nextProps.loading) {
       this.setState({
         style: 'spinner spinner-opacity-0',
@@ -21,8 +20,11 @@ export class Spinner extends Component {
           style: 'spinner spinner-opacity-0 spinner-height-0',
         });
       }, 700);
+    } else {
+      this.setState({
+        style: 'spinner',
+      });
     }
-    // }
   }
 
   render() {
