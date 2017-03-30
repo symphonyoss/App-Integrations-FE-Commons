@@ -103,12 +103,7 @@ const messages = (state = { appName: '', type: '', text: [] }, action) => {
     case NO_INSTANCES_FOUND:
       return Object.assign({}, state, {
         type: 'warning',
-        text: (() => {
-          if (state.text.filter(msg => msg === NO_INSTANCES_FOUND_MESSAGE).length > 0) {
-            return state.text.slice();
-          }
-          return state.text.concat([NO_INSTANCES_FOUND_MESSAGE]);
-        })(),
+        text: [NO_INSTANCES_FOUND_MESSAGE],
       });
     case FAILED_OPERATION:
       return Object.assign({}, state, {

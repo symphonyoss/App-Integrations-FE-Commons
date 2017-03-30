@@ -11,7 +11,6 @@ const instanceList = (state = { instances: [], loading: true, firstScreen: true 
         ...state,
         instances: action.payload,
         loading: false,
-        firstScreen: !action.payload.length > 0,
       });
     case SUCCESSFULLY_CREATED:
       return Object.assign({}, state, {
@@ -21,6 +20,7 @@ const instanceList = (state = { instances: [], loading: true, firstScreen: true 
           ...state.instances,
           action.instance,
         ],
+        firstScreen: false,
       });
     case SUBMIT_DONE:
       return Object.assign({}, state, {

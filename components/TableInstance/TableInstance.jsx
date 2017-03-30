@@ -25,15 +25,12 @@ class TableInstance extends Component {
       !nextProps.loading
     ) {
       hashHistory.push('/create-view');
+      return;
     }
     if (nextProps.instanceList.length === 0 && !nextProps.loading) {
       this.props.showNoInstancesFound();
     }
   }
-
-  // componentDidMount() {
-  //   this.props.getInstanceList();
-  // }
 
   onClickEdit(_instance) {
     this.props.resetMessage();

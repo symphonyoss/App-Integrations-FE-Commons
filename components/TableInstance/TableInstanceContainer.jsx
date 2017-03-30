@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 import {
   getInstanceList,
   getInstanceInfo,
-  resetMessage as callResetMessage,
   showNoInstancesFound as showNotFound,
+  resetMessage as callResetMessage,
 } from '../../actions';
 
 import TableInstance from './TableInstance';
@@ -22,8 +22,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getInstanceList: () => { dispatch(getInstanceList()); },
   showEditInstanceView: (_instance) => { dispatch(getInstanceInfo(_instance)); },
-  resetMessage: () => { dispatch(callResetMessage()); },
   showNoInstancesFound: () => { dispatch(showNotFound()); },
+  resetMessage: () => { dispatch(callResetMessage()); },
 });
 
 const TableInstanceContainer = connect(
