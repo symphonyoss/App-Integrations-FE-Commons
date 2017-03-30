@@ -17,11 +17,9 @@ const mapStateToProps = (state) => {
   store = Object.assign({}, state.instance);
   return {
     saved: state.instance.saved,
-    // instanceId: state.instance.instanceId,
     name: state.instance.name,
     streamType: state.instance.streamType,
     postingRooms: state.instance.streams,
-    // postingRooms: state.instance.postingLocationRooms,
   };
 };
 
