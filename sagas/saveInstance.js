@@ -17,7 +17,6 @@ export function* saveInstance() {
     success;
   try {
     yield put({ type: CALL_SAVE_INSTANCE });
-    debugger;
     const state = yield select();
     const instance = state.instance;
     if (instance.streamType === 'IM') {

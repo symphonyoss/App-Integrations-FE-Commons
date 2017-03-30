@@ -7,7 +7,6 @@ export function* getRooms() {
     const rooms = yield call(getUserRooms);
     yield put({ type: 'FETCH_ROOMS_SUCCESS', payload: rooms });
   } catch (error) {
-    debugger;
     yield put({ type: 'FETCH_FAILED', error });
   }
 }
