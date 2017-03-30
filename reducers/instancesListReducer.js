@@ -4,13 +4,14 @@ import {
   SUBMIT_DONE,
 } from '../actions';
 
-const instanceList = (state = { instances: [], loading: false }, action) => {
+const instanceList = (state = { instances: [], loading: true, firstScreen: true }, action) => {
   switch (action.type) {
     case FETCH_INSTANCE_LIST_SUCCESS:
       return Object.assign({}, state, {
         ...state,
         instances: action.payload,
         loading: false,
+        firstScreen: !action.payload.length > 0,
       });
     case SUCCESSFULLY_CREATED:
       return Object.assign({}, state, {

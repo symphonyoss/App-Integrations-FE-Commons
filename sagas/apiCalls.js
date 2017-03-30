@@ -1,4 +1,6 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable no-debugger*/
+/* eslint-disable no-unused-vars*/
+import axios from 'axios';
 import { Utils } from '../js/utils.service';
 import config from '../js/config.service';
 
@@ -115,17 +117,27 @@ export const removeInstance = (state) => {
     configurationId, state.instanceId);
 };
 
-export const sendWelcomeMessage = (state) => {
-  const baseURL = 'https://nexus.symphony.com/integration/v1/whi/devWebHookIntegration/578543c2e4b0edcf4f5ff520';
-  const url = `${baseURL}/${state.instanceId}/welcome`;
-  const payload = {
-    streams: state.streams,
-  };
-  $.ajax({
-    url,
-    type: 'POST',
-    data: JSON.stringify(payload),
-    dataType: 'json',
-    contentType: 'application/json',
-  });
-};
+export const sendWelcomeMessage = state => ({ ok: 'ok' });
+  // const baseURL = 'https://nexus.symphony.com/integration/v1/whi/devWebHookIntegration/578543c2e4b0edcf4f5ff520';
+  // debugger;
+  // const url = `${baseWebHookURL}/${state.instanceId}/welcome`;
+  // const payload = {
+  //   state,
+  // };
+  // axios.post(url, {
+  //   params: {
+  //     data: JSON.stringify(payload),
+  //     dataType: 'json',
+  //     contentType: 'application/json',
+  //   }
+  // })
+  // .then((data) => {
+  //   debugger;
+  //   return data;
+  // })
+  // .catch((err) => {
+  //   debugger;
+  //   return err;
+  // });
+  // return { ok: 'ok'};
+// };
