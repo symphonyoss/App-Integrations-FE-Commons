@@ -30,6 +30,9 @@ before_script:
 - npm install -g node-license-validator
 - npm install -g semantic-release
 
+before_install:
+  - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
+
 script:
 # Install npm dependencies
 - "if [[ \"$TRAVIS_PULL_REQUEST\" = \"false\" && $TRAVIS_BRANCH =~ dev ]]; then npm install ; fi"
