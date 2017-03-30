@@ -1,5 +1,4 @@
 /* eslint-disable react/no-unused-prop-types */
-/* eslint-disable no-debugger */
 import React, { Component, PropTypes } from 'react';
 import { hashHistory } from 'react-router';
 import DataRow from './DataRow';
