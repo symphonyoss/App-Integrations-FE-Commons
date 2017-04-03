@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars*/
 import axios from 'axios';
 import { Utils } from '../js/utils.service';
 import config from '../js/config.service';
@@ -116,4 +115,16 @@ export const removeInstance = (state) => {
     configurationId, state.instanceId);
 };
 
-export const sendWelcomeMessage = state => ({ ok: 'ok' });
+export const sendWelcomeMessage = (state) => {
+  const url = `${baseWebHookURL}/${state.instanceId}/welcome`;
+  const payload = {
+    streams: state.streams,
+  };
+  axios.post(url, {
+    params: {
+      data: JSON.stringify(payload),
+    },
+  })
+  .then(data => data)
+  .catch(err => err);
+};
