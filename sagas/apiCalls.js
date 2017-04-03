@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+import axios from 'axios';
 import { Utils } from '../js/utils.service';
 import config from '../js/config.service';
 
@@ -116,16 +116,15 @@ export const removeInstance = (state) => {
 };
 
 export const sendWelcomeMessage = (state) => {
-  const baseURL = 'https://nexus.symphony.com/integration/v1/whi/devWebHookIntegration/578543c2e4b0edcf4f5ff520';
-  const url = `${baseURL}/${state.instanceId}/welcome`;
+  const url = `${baseWebHookURL}/${state.instanceId}/welcome`;
   const payload = {
     streams: state.streams,
   };
-  $.ajax({
-    url,
-    type: 'POST',
-    data: JSON.stringify(payload),
-    dataType: 'json',
-    contentType: 'application/json',
-  });
+  axios.post(url, {
+    params: {
+      data: JSON.stringify(payload),
+    },
+  })
+  .then(data => data)
+  .catch(err => err);
 };
