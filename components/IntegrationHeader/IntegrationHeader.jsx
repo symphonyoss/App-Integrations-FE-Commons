@@ -11,7 +11,7 @@ const IntegrationHeader = ({ showSubTitle, logo, subtitle }) => (
   <div className='wrapper integration-header'>
     <header>
       <figure>
-        <img src={`../../img/${logo}`} alt={subtitle} />
+        <img src={`img/${logo}`} alt={subtitle} />
       </figure>
       <h2>{subtitle}</h2>
     </header>

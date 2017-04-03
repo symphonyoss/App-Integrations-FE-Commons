@@ -5,6 +5,8 @@ import {
   HIDE_REQUIRE_NAME,
   HIDE_REQUIRE_ROOMS,
   NAME_IS_REQUIRED,
+  NO_INSTANCES_FOUND,
+  NO_INSTANCES_FOUND_MESSAGE,
   RESET_MESSAGE,
   REQUIRED_NAME,
   REQUIRED_ROOMS,
@@ -97,6 +99,11 @@ const messages = (state = { appName: '', type: '', text: [] }, action) => {
       return Object.assign({}, state, {
         type: '',
         text: [],
+      });
+    case NO_INSTANCES_FOUND:
+      return Object.assign({}, state, {
+        type: 'warning',
+        text: [NO_INSTANCES_FOUND_MESSAGE],
       });
     case FAILED_OPERATION:
       return Object.assign({}, state, {

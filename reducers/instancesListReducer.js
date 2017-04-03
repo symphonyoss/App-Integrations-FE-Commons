@@ -4,7 +4,7 @@ import {
   SUBMIT_DONE,
 } from '../actions';
 
-const instanceList = (state = { instances: [], loading: false }, action) => {
+const instanceList = (state = { instances: [], loading: true, firstScreen: true }, action) => {
   switch (action.type) {
     case FETCH_INSTANCE_LIST_SUCCESS:
       return Object.assign({}, state, {
@@ -20,6 +20,7 @@ const instanceList = (state = { instances: [], loading: false }, action) => {
           ...state.instances,
           action.instance,
         ],
+        firstScreen: false,
       });
     case SUBMIT_DONE:
       return Object.assign({}, state, {

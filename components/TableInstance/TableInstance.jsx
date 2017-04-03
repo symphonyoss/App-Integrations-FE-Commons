@@ -13,8 +13,22 @@ class TableInstance extends Component {
     this.onClickRemove = this.onClickRemove.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.getInstanceList();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (
+      nextProps.firstScreen &&
+      nextProps.instanceList.length === 0 &&
+      !nextProps.loading
+    ) {
+      hashHistory.push('/create-view');
+      return;
+    }
+    if (nextProps.instanceList.length === 0 && !nextProps.loading) {
+      this.props.showNoInstancesFound();
+    }
   }
 
   onClickEdit(_instance) {
@@ -80,8 +94,11 @@ TableInstance.propTypes = {
   loading: PropTypes.bool.isRequired,
   baseWebHookURL: PropTypes.string,
   getInstanceList: PropTypes.func.isRequired,
+  firstScreen: PropTypes.bool.isRequired,
   showEditInstanceView: PropTypes.func.isRequired,
   resetMessage: PropTypes.func.isRequired,
+  typeMessage: PropTypes.string.isRequired,
+  showNoInstancesFound: PropTypes.func.isRequired,
 };
 
 export default TableInstance;

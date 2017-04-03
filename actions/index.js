@@ -32,6 +32,7 @@ export const FETCH_USER_ID_SUCCESS = 'FETCH_USER_ID_SUCCESS';
 export const GET_ACTIVE_INSTANCE_RESETED = 'GET_ACTIVE_INSTANCE_RESETED';
 export const GET_INSTANCE_INFO = 'GET_INSTANCE_INFO';
 export const MESSAGE_ERROR = 'MESSAGE_ERROR';
+export const NO_INSTANCES_FOUND = 'NO_INSTANCES_FOUND';
 export const REQUIRED_NAME = 'REQUIRED_NAME';
 export const REQUIRED_ROOMS = 'REQUIRED_ROOMS';
 export const REMOVE_INSTANCE = 'REMOVE_INSTANCE';
@@ -47,6 +48,7 @@ export const SUCCESSFULLY_REMOVED = 'SUCCESSFULLY_REMOVED';
 export const SUCCESSFULLY_UPDATED = 'SUCCESSFULLY_UPDATED';
 
 // Message Actions
+export const NO_INSTANCES_FOUND_MESSAGE = 'No Webhook Instances were found.';
 export const FAILED_OPERATION_MESSAGE = 'An error has ocurred and the operation could not be completed. Please try again later.';
 export const NAME_IS_REQUIRED = 'Name is required!';
 export const ROOMS_IS_REQUIRED = 'Posting Location is required!';
@@ -127,6 +129,10 @@ export const hideRequireRooms = state => ({
 
 export const showRequireRooms = () => ({
   type: REQUIRED_ROOMS,
+});
+
+export const showNoInstancesFound = () => ({
+  type: NO_INSTANCES_FOUND,
 });
 
 export const resetMessage = () => ({
