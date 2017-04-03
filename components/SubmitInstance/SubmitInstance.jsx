@@ -40,9 +40,9 @@ export class SubmitInstance extends Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.saved !== nextProps.saved) {
       if (nextProps.saved) {
-        if (nextProps.operation === 'CREATE' || nextProps.operation === 'UPDATE') {
+        if (nextProps.operation === 'CREATE') {
           hashHistory.push('/instance-created');
-        } else if (nextProps.operation === 'REMOVE') {
+        } else if (nextProps.operation === 'REMOVE' || nextProps.operation === 'UPDATE') {
           hashHistory.push('/');
         }
       } else {

@@ -3,6 +3,7 @@ import IntegrationHeader from '../components/IntegrationHeader/IntegrationHeader
 import InputDescriptionInfo from '../components/InputDescriptionInfo/InputDescriptionInfo';
 import PostingLocationInfo from '../components/PostingLocationInfo/PostingLocationInfo';
 import WebHookURLCopy from '../components/WebHookURLCopy/WebHookURLCopy';
+import SetupInstructions from '../components/SetupInstructions/SetupInstructions';
 import SubmitConfirmation from '../components/SubmitConfirmation/SubmitConfirmation';
 
 const InstanceCreated = () => (
@@ -11,6 +12,7 @@ const InstanceCreated = () => (
     <InputDescriptionInfo />
     <PostingLocationInfo />
     <WebHookURLCopy />
+    <SetupInstructions />
     <SubmitConfirmation />
   </div>
 );

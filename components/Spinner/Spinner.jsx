@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger */
 import React, { Component, PropTypes } from 'react';
 import './styles/styles.less';
 

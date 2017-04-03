@@ -5,6 +5,7 @@ import {
   submitDone,
 } from '../../actions';
 import '../../styles/main.less';
+import './styles/styles.less';
 
 class SubmitConfirmation extends Component {
   componentWillReceiveProps(nextProps) {

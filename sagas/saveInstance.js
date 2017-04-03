@@ -13,11 +13,9 @@ import {
 } from './apiCalls';
 
 export function* saveInstance() {
-  let imStream,
-    success;
+  let imStream;
   try {
     yield put({ type: CALL_SAVE_INSTANCE });
-    debugger;
     const state = yield select();
     const instance = state.instance;
     if (instance.streamType === 'IM') {
@@ -27,7 +25,7 @@ export function* saveInstance() {
       if (instance.streams.length > 0) {
         for (const stream in instance.streams) {
           if (instance.streams[stream]) {
-            success = yield call(addMembership, instance.streams[stream]);
+            yield call(addMembership, instance.streams[stream]);
           }
         }
       }
@@ -36,10 +34,8 @@ export function* saveInstance() {
     const response = yield call(apiSaveInstance, state);
     instance.instanceId = response.instanceId;
     instance.lastPosted = response.lastModifiedDate;
-    success = yield put({ type: SUCCESSFULLY_CREATED, instance });
-    if (success) {
-      yield call(sendWelcomeMessage, instance);
-    }
+    yield put({ type: SUCCESSFULLY_CREATED, instance });
+    yield call(sendWelcomeMessage, instance);
   } catch (error) {
     yield put({ type: FAILED_OPERATION });
   }

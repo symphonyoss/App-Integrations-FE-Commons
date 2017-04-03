@@ -17,7 +17,6 @@ import {
 const instanceReducer = (state = { saved: false, loading: false }, action) => {
   switch (action.type) {
     case GET_ACTIVE_INSTANCE_RESETED:
-      // debugger;
       return action.instance;
     case CHANGE_INSTANCE_NAME:
       return Object.assign({}, state, {
@@ -79,13 +78,11 @@ const instanceReducer = (state = { saved: false, loading: false }, action) => {
         loading: false,
       });
     case CALL_SAVE_INSTANCE:
-      debugger;
       return Object.assign({}, state, {
         ...state,
         loading: true,
       });
     case FAILED_OPERATION:
-      debugger;
       return Object.assign({}, state, {
         ...state,
         saved: null,

@@ -54,12 +54,6 @@ const dependencies = [
 * @return       SYMPHONY.remote.hello       returns a SYMPHONY remote hello service.
 */
 export const register = (SYMPHONY, services) => {
-  /* if (services) {
-    const newDependencies = services.filter(service => service !== dependencies.map(item => item));
-    dependencies.concat(newDependencies);
-    debugger;
-  }*/
-
   // create our own service
   const listService = SYMPHONY.services.register(`${params.appId}:controller`);
   function registerApplication() {
