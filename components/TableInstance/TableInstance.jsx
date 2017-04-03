@@ -31,7 +31,9 @@ class TableInstance extends Component {
   render() {
     return (
       <div>
-        <Spinner loading={this.props.loading} />
+        {
+          this.props.loading && (<Spinner />)
+        }
         <div className='wrapper table-instance'>
           <table className={this.props.loading ? 'instances' : 'instances table-opacity-1'}>
             <thead>
