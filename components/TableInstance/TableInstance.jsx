@@ -45,46 +45,44 @@ class TableInstance extends Component {
   render() {
     return (
       <div>
-        <Spinner loading={this.props.loading} />
         {
-          this.props.instanceList.length > 0 && (
-            <div className='wrapper table-instance'>
-              <table className={this.props.loading ? 'instances' : 'instances table-opacity-1'}>
-                <thead>
-                  <tr>
-                    <th><span>Description</span></th>
-                    <th><span>Active in</span></th>
-                    <th><span>Webhook URL</span></th>
-                    <th><span>Last Posted</span></th>
-                    <th><span>Actions</span></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {this.props.instanceList.map((item, index) => {
-                    const _instance = {
-                      name: item.name,
-                      appName: this.props.appName,
-                      streamType: item.streamType,
-                      instanceId: item.instanceId,
-                      baseWebHookURL: this.props.baseWebHookURL,
-                      postingLocationRooms: item.postingLocationRooms,
-                      lastPosted: item.lastPosted,
-                    };
-                    return (
-                      <DataRow
-                        instance={_instance}
-                        onClickEdit={this.onClickEdit}
-                        onClickRemove={this.onClickRemove}
-                        key={index}
-                        id={index}
-                      />
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          )
+          this.props.loading && (<Spinner />)
         }
+        <div className='wrapper table-instance'>
+          <table className={this.props.loading ? 'instances' : 'instances table-opacity-1'}>
+            <thead>
+              <tr>
+                <th><span>Description</span></th>
+                <th><span>Active in</span></th>
+                <th><span>Webhook URL</span></th>
+                <th><span>Last Posted</span></th>
+                <th><span>Actions</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.props.instanceList.map((item, index) => {
+                const _instance = {
+                  name: item.name,
+                  appName: this.props.appName,
+                  streamType: item.streamType,
+                  instanceId: item.instanceId,
+                  baseWebHookURL: this.props.baseWebHookURL,
+                  postingLocationRooms: item.postingLocationRooms,
+                  lastPosted: item.lastPosted,
+                };
+                return (
+                  <DataRow
+                    instance={_instance}
+                    onClickEdit={this.onClickEdit}
+                    onClickRemove={this.onClickRemove}
+                    key={index}
+                    id={index}
+                  />
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }
