@@ -1,8 +1,8 @@
 export default ({
   appTitle: 'Configure My App',
-  appName: 'My App',
+  appName: 'My Custom App',
   appSubTitle: 'My App Integration',
-  appIMShortHand: 'My App',
+  appIMShortHand: 'My Custom App',
   appToggleSetupInstructions: true,
-  appLogo: 'jira_logo.png',
+  appLogo: 'custom_logo.png',
 });

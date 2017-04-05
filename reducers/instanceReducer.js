@@ -14,7 +14,7 @@ import {
   SUCCESSFULLY_UPDATED,
 } from '../actions';
 
-const instanceReducer = (state = { saved: false, loading: false }, action) => {
+const instanceReducer = (state = { saved: false, streamType: 'IM', loading: false }, action) => {
   switch (action.type) {
     case GET_ACTIVE_INSTANCE_RESETED:
       return action.instance;

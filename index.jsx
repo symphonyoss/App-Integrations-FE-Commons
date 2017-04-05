@@ -23,9 +23,10 @@ import InputDescriptionComponent from './components/InputDescription/InputDescri
 import InputDescriptionInfoComponent from './components/InputDescriptionInfo/InputDescriptionInfo';
 import IntegrationHeaderComponent from './components/IntegrationHeader/IntegrationHeader';
 import MessageBoxComponent from './components/MessageBox/MessageBox';
-import PostingLocationComponent from './components/PostingLocation/PostingLocation';
+import PostingLocationComponent from './components/PostingLocation/PostingLocationContainer';
 import PostingLocationInfoComponent from './components/PostingLocationInfo/PostingLocationInfo';
 import SpinnerComponent from './components/Spinner/Spinner';
+import SubmitInstanceComponent from './components/SubmitInstance/SubmitInstanceContainer';
 import TableInstanceComponent from './components/TableInstance/TableInstanceContainer';
 import WebHookURLComponent from './components/WebHookURLCopy/WebHookURLCopy';
 // Views
@@ -43,6 +44,9 @@ export const MessageBox = MessageBoxComponent;
 export const PostingLocation = PostingLocationComponent;
 export const PostingLocationInfo = PostingLocationInfoComponent;
 export const Spinner = SpinnerComponent;
+export const SubmitInstance = SubmitInstanceComponent;
+export const WebHookURL = WebHookURLComponent;
+
 export const TableInstance = TableInstanceComponent;
 export const WebHookURLCopy = WebHookURLComponent;
 // Export Services

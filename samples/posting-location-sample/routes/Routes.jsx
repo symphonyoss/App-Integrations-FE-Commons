@@ -1,22 +1,17 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { Router, Route, hashHistory } from 'react-router';
-import {
-  Home,
-  CreateView,
-  EditView,
-  RemoveView,
-  InstanceCreated,
- } from 'symphony-integration-commons';
-// import Home from '../components/Home';
+import CustomCreate from '../components/CustomCreate';
+import CustomInstanceCreated from '../components/CustomInstanceCreated';
+import ChooseStreamType from '../components/ChooseStreamType';
+import InstanceList from '../components/InstanceList';
 
 const Routes = () => (
   <Router history={hashHistory}>
-    <Route path='/' component={Home} />
-    <Route path='/create-view' component={CreateView} />
-    <Route path='/edit-view' component={EditView} />
-    <Route path='/remove-view' component={RemoveView} />
-    <Route path='/instance-created' component={InstanceCreated} />
+    <Route path='/' component={InstanceList} />
+    <Route path='/custom-create' component={CustomCreate} />
+    <Route path='/choose-stream-type' component={ChooseStreamType} />
+    <Route path='/instance-created' component={CustomInstanceCreated} />
   </Router>
 );
 
