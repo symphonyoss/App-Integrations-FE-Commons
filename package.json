@@ -1,6 +1,6 @@
 {
   "name": "symphony-integration-commons",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Common components for 3rd party developers build the user facing application for Symphony Integrations.",
   "main": "./dist/index.js",
   "scripts": {
