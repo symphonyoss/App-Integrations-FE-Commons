@@ -15,6 +15,7 @@ export class SuggestionsRooms extends Component {
       listening: false,     // check if input search has event listener
       focused: -1,          // handles list items focus,
       filled: false,
+      clear: false,         // handles when to show the clear input text button
     };
     this.container = null;
     this.input = null;
@@ -80,24 +81,23 @@ export class SuggestionsRooms extends Component {
       this.setState({
         filteredRooms: [],
         filled: false,
+        clear: false,
       });
+      if (this.state.listening) {
+        this.removeInputListener();
+      }
       return;
     }
     let suggestionsList = this.state.suggestionsList;
     suggestionsList = suggestionsList.filter(item =>
       item.name.toLowerCase().search(e.target.value.toLowerCase()) !== -1
     );
-    if (target.value !== '') {
-      if (!this.state.listening) {
-        this.addInputListener();
-      }
-    } else if (target.value === '') {
-      if (this.state.listening) {
-        this.removeInputListener();
-      }
+    if (!this.state.listening) {
+      this.addInputListener();
     }
     this.setState({
       filteredRooms: suggestionsList,
+      clear: true,
     });
   }
 
@@ -178,6 +178,7 @@ export class SuggestionsRooms extends Component {
     this.setState({
       filteredRooms: [],
       focused: -1,
+      clear: false,
     });
     this.input.value = '';
     this.input.focus();
@@ -249,7 +250,10 @@ export class SuggestionsRooms extends Component {
               ref={(input) => { this.input = input; }}
               placeholder={this.props.loading ? 'Loading...' : 'Search rooms'}
             />
-            <button onClick={this.clearInput}>
+            <button
+              className={this.state.clear ? 'visible' : 'hidden'}
+              onClick={this.clearInput}
+            >
               <i className='fa fa-times' />
             </button>
           </div>
