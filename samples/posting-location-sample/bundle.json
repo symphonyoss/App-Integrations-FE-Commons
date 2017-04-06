@@ -1,0 +1,14 @@
+{
+  "applications": [
+    {
+      "type": "sandbox",
+      "id": "sampleMyApp",
+      "name": "Posting Location Sample",
+      "blurb": "My App Integration Sample",
+      "publisher": "Symphony",
+      "url": "https://localhost.symphony.com:4000/controller.html?configurationId=578543c2e4b0edcf4f5ff520&botUserId=68719476768&id=sampleMyApp",
+      "icon": "https://localhost.symphony.com:4000/img/appstore-logo.png",
+      "domain": ".symphony.com"
+    }
+  ]
+}
