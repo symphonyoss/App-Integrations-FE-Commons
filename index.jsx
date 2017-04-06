@@ -87,10 +87,11 @@ const dependencies = [
 
 /*
 * register                                  register application on symphony client
-* @params       services                    additional services for each integration. (Optional)
+* @params       SYMPHONY                    global variable SYMPHONY returned from SYMPHONY api
+* @params       appTitle                    title that should be shown on title bar
 * @return       SYMPHONY.remote.hello       returns a SYMPHONY remote hello service.
 */
-export const register = (SYMPHONY, services) => {
+export const register = (SYMPHONY, appTitle) => {
   // create our own service
   const listService = SYMPHONY.services.register(`${params.appId}:controller`);
   function registerApplication() {
@@ -117,7 +118,7 @@ export const register = (SYMPHONY, services) => {
         // invoke the module service to show our own application in the grid
         modulesService.show(
           params.appId,
-          { title: factory.getParams.appTitle },
+          { title: appTitle },
           `${params.appId}:controller`,
           url.join(''),
           { canFloat: true },
