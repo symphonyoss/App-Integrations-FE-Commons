@@ -50,7 +50,7 @@ class InputDescription extends Component {
           />
           {
             !this.state.filled &&
-              <span id='required-field'>
+              <span id='description-required-field'>
                 <i className="fa fa-asterisk" aria-hidden="true" />
               </span>
           }
