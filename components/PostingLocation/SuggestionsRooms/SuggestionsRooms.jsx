@@ -259,7 +259,7 @@ export class SuggestionsRooms extends Component {
           </div>
           {
             !this.state.filled &&
-            <span>
+            <span id='rooms-required-field'>
               <i className="fa fa-asterisk" aria-hidden="true" />
             </span>
           }

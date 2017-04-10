@@ -47,13 +47,13 @@ export class PostingLocation extends Component {
           <div className='radio'>
             <input
               type="radio"
-              id='CHATROOM'
+              id='chat-room'
               name='posting'
               onChange={this.onChange}
               checked={this.props.streamType === 'CHATROOM'}
             />
             <div className='chat-room-info'>
-              <label htmlFor="CHATROOM">Existing chat room</label>
+              <label htmlFor="chat-room">Existing chat room</label>
               <p>
                 You can only add this integration to a room of which you are an owner.
                 You can choose one or more rooms.
