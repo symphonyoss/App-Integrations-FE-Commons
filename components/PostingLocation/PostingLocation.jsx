@@ -24,7 +24,7 @@ export class PostingLocation extends Component {
     this.setState({
       suggestions: e.target.id !== 'IM',
     });
-    this.props.switchStreamType(e.target.id);
+    this.props.switchStreamType(e.target.id === 'IM' ? 'IM' : 'CHATROOM');
   }
 
   render() {
