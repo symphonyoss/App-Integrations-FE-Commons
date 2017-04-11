@@ -64,7 +64,7 @@ class SetupInstructions extends Component {
             </div>
           )
         }
-        <div>
+        <div className='setup-instructions-content'>
           {this.props.template}
         </div>
       </div>
