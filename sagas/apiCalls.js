@@ -120,11 +120,7 @@ export const sendWelcomeMessage = (state) => {
   const payload = {
     streams: state.streams,
   };
-  axios.post(url, {
-    params: {
-      data: JSON.stringify(payload),
-    },
-  })
+  axios.post(url, payload)
   .then(data => data)
   .catch(err => err);
 };
