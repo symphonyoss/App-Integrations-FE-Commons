@@ -53,7 +53,7 @@ class DataRow extends Component {
         <td>
           {
             this.props.instance.streamType === 'IM' ?
-              <span>One on one chat with {this.props.appName}</span> :
+              <span>One on one chat with {this.props.instance.imShortHand}</span> :
               <ul className='active-in'>
                 {
                   this.props.instance.postingLocationRooms.map((room, idx) =>
@@ -110,6 +110,7 @@ DataRow.propTypes = {
   appName: PropTypes.string.isRequired,
   instance: PropTypes.shape({
     name: PropTypes.string.isRequired,
+    imShortHand: PropTypes.string.isRequired,
     streamType: PropTypes.string.isRequired,
     instanceId: PropTypes.string.isRequired,
     baseWebHookURL: PropTypes.string.isRequired,
