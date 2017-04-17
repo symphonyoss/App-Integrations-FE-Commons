@@ -11,6 +11,7 @@ import TableInstance from './TableInstance';
 const mapStateToProps = state => ({
   userId: state.userId,
   appName: state.appParams.appName,
+  appIMShortHand: state.appParams.appIMShortHand,
   rooms: state.userRooms,
   instanceList: state.instanceList.instances,
   firstScreen: state.instanceList.firstScreen,

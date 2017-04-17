@@ -64,6 +64,7 @@ class TableInstance extends Component {
                 const _instance = {
                   name: item.name,
                   appName: this.props.appName,
+                  imShortHand: this.props.appIMShortHand,
                   streamType: item.streamType,
                   instanceId: item.instanceId,
                   baseWebHookURL: this.props.baseWebHookURL,
@@ -90,6 +91,7 @@ class TableInstance extends Component {
 
 TableInstance.propTypes = {
   appName: PropTypes.string.isRequired,
+  appIMShortHand: PropTypes.string.isRequired,
   instanceList: PropTypes.arrayOf(PropTypes.object).isRequired,
   loading: PropTypes.bool.isRequired,
   baseWebHookURL: PropTypes.string,
