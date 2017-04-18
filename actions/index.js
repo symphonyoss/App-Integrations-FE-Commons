@@ -52,7 +52,7 @@ export const NO_INSTANCES_FOUND_MESSAGE = 'No Webhook Instances were found.';
 export const FAILED_OPERATION_MESSAGE = 'An error has ocurred and the operation could not be completed. Please try again later.';
 export const NAME_IS_REQUIRED = 'Description is required!';
 export const ROOMS_IS_REQUIRED = 'Posting Location is required!';
-export const SUCCESSFULLY_CREATED_MESSAGE = 'You have successfully Configured a new #INTEGRATION_NAME integration. Register your Configured integration on #INTEGRATION_NAME to complete setup.';
+export const SUCCESSFULLY_CREATED_MESSAGE = 'You have successfully configured a new #INTEGRATION_NAME integration. Register your configured integration on #INTEGRATION_NAME to complete setup.';
 export const SUCCESSFULLY_REMOVED_MESSAGE = 'Instance removed from Symphony. You can now remove the webhook from #INTEGRATION_NAME';
 export const SUCCESSFULLY_UPDATED_MESSAGE = 'You have successfully updated your #INTEGRATION_NAME integration.';
 
