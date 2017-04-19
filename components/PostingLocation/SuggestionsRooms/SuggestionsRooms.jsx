@@ -200,6 +200,7 @@ export class SuggestionsRooms extends Component {
       filters: this.state.filters.concat([filter]),
       suggestionsList: suggestions.slice(),
       filled: true,
+      clear: false,
     });
     this.props.addStreamToInstance(postingLocationRoom);
     this.input.value = '';
