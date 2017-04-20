@@ -7,13 +7,13 @@ import React, { PropTypes } from 'react';
 import '../../styles/main.less';
 import './styles/styles.less';
 
-const IntegrationHeader = ({ showSubTitle, logo, subtitle }) => (
+const IntegrationHeader = ({ showSubTitle, logo, title, subtitle }) => (
   <div className='wrapper integration-header'>
     <header>
       <figure>
-        <img src={`img/${logo}`} alt={subtitle} />
+        <img src={`img/${logo}`} alt={title} />
       </figure>
-      <h2>{subtitle}</h2>
+      <h2>{title}</h2>
     </header>
     {
       showSubTitle && (
@@ -29,6 +29,7 @@ IntegrationHeader.propTypes = {
   showSubTitle: PropTypes.bool,
   logo: PropTypes.string,
   subtitle: PropTypes.string,
+  title: PropTypes.string.isRequired,
 };
 
 IntegrationHeader.defaultProps = {
@@ -37,6 +38,7 @@ IntegrationHeader.defaultProps = {
 
 const mapStateToProps = state => ({
   logo: state.appParams.appLogo,
+  title: state.appParams.appName,
   subtitle: state.appParams.appSubTitle,
 });
 
