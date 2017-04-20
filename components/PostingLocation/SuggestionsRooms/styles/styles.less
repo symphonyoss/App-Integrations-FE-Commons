@@ -127,4 +127,20 @@
 
       button { color: #000; }
     }
+
+    .filter-container {
+      background: #fff;
+
+      .filter-box {
+        border-bottom: 1px solid #cdcdcd;
+
+        .filter-box-clickable {
+          &:hover, &:focus { background: rgba(0,0,0,.05); }
+
+          span { color: rgba(0,0,0,.8) }
+
+          .room-info span { color: rgba(0,0,0,.6); }
+        }
+      }
+  }
 }
