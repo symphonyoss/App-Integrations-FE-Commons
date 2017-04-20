@@ -20,6 +20,7 @@ const mapStateToProps = (state) => {
     name: state.instance.name,
     streamType: state.instance.streamType,
     postingRooms: state.instance.streams,
+    instanceList: state.instanceList.instances,
   };
 };
 
