@@ -103,9 +103,14 @@ export class SubmitInstance extends Component {
 
   render() {
     return (
-      <div className='submit-container'>
-        <button className='button cancel-link' onClick={this.onCancel}>Cancel</button>
-        <button className='button' onClick={this.validateFields}>{this.state.label}</button>
+        <div className='submit-container'>
+          <button
+            className={this.props.instanceList.length > 0 ? 'button cancel-link' : 'hidden'}
+            onClick={this.onCancel}
+          >
+            Cancel
+          </button>
+          <button className='button' onClick={this.validateFields}>{this.state.label}</button>
       </div>
     );
   }
@@ -120,6 +125,7 @@ SubmitInstance.propTypes = {
   showRequireRooms: PropTypes.func.isRequired,
   hideRequireName: PropTypes.func.isRequired,
   hideRequireRooms: PropTypes.func.isRequired,
+  instanceList: PropTypes.arrayOf(PropTypes.object).isRequired,
   saved: PropTypes.bool,
   name: PropTypes.string,
   streamType: PropTypes.string,
@@ -129,6 +135,7 @@ SubmitInstance.propTypes = {
 
 SubmitInstance.defaultProps = {
   saved: false,
+  firstScreen: true,
 };
 
 export default SubmitInstance;
