@@ -1,5 +1,46 @@
 @import './lib.less';
 
+::-webkit-scrollbar {
+  width: 10px; /* 1px wider than Lion. */
+  height: 10px;
+  /* This is more usable for users trying to click it. */
+  background-color: rgba(0,0,0,0);
+  -webkit-border-radius: 100px;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+/* hover effect for both scrollbar area, and scrollbar 'thumb' */
+::-webkit-scrollbar:hover {
+  background-color: rgba(0, 0, 0, 0.09);
+}
+/* The scrollbar 'thumb' ...that marque oval shape in a scrollbar */
+::-webkit-scrollbar-thumb:vertical, ::-webkit-scrollbar-thumb:horizontal {
+  background: rgba(0,0,0,0.5);
+  -webkit-border-radius: 100px;
+  background-clip: padding-box;
+  border: 2px solid rgba(0, 0, 0, 0);
+  min-height: 10px; /*Prevent it from getting too small */
+}
+::-webkit-scrollbar-thumb:vertical:active, ::-webkit-scrollbar-thumb:horizontal:active {
+  background: rgba(0,0,0,0.61); /* Some darker color when you click it */
+  -webkit-border-radius: 100px;
+}
+/* IE11 soln */
+html, body {
+  scrollbar-shadow-color: rgba(0,0,0,0);
+  scrollbar-face-color: rgba(0,0,0,.5);
+  scrollbar-track-color: rgba(0,0,0,0);
+  scrollbar-arrow-color: rgba(0,0,0,0);
+}
+/* Dark contrast visibility */
+body.dark-contrast ::-webkit-scrollbar-thumb:vertical, ::-webkit-scrollbar-thumb:horizontal {
+  background: rgba(110,110,110,0.5);
+  background-clip: padding-box;
+  padding: 0;
+  margin: 0
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;

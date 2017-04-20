@@ -247,6 +247,7 @@ export class SuggestionsRooms extends Component {
           <div className='input-search-container'>
             <input
               type='text'
+              id='input-posting-location'
               onChange={this.onChangeSearch}
               ref={(input) => { this.input = input; }}
               placeholder={this.props.loading ? 'Loading...' : 'Search rooms'}
