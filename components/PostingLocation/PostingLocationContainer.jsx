@@ -7,6 +7,8 @@ import PostingLocation from './PostingLocation';
 const mapStateToProps = state => ({
   streamType: state.instance.streamType,
   instance: state.instance,
+  instanceList: state.instanceList.instances,
+  appName: state.appParams.appName,
 });
 
 const mapDispatchToProps = dispatch => ({
