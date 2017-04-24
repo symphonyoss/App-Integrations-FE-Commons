@@ -42,7 +42,13 @@ export class PostingLocation extends Component {
               onChange={this.onChange}
               checked={this.props.streamType === 'IM'}
             />
-            <label htmlFor="IM">New one-on-one chat</label>
+            <label htmlFor="IM">
+              {
+                this.props.instanceList.filter(item => item.streamType === 'IM').length > 0 ? (
+                  `Existing one-on-one chat with ${this.props.appName}`
+                ) : `New one-on-one chat ${this.props.appName}`
+              }
+            </label>
           </div>
           <div className='radio'>
             <input
@@ -70,7 +76,9 @@ export class PostingLocation extends Component {
 PostingLocation.propTypes = {
   streamType: PropTypes.string.isRequired,
   instance: PropTypes.shape(),
+  instanceList: PropTypes.arrayOf(PropTypes.object).isRequired,
   switchStreamType: PropTypes.func.isRequired,
+  appName: PropTypes.string.isRequired,
 };
 
 export default PostingLocation;
