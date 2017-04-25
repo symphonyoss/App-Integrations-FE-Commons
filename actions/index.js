@@ -46,6 +46,7 @@ export const SUBMIT_DONE = 'SUBMIT_DONE';
 export const SUCCESSFULLY_CREATED = 'SUCCESSFULLY_CREATED';
 export const SUCCESSFULLY_REMOVED = 'SUCCESSFULLY_REMOVED';
 export const SUCCESSFULLY_UPDATED = 'SUCCESSFULLY_UPDATED';
+export const UPDATE_ROOMS = 'UPDATE_ROOMS';
 
 // Message Actions
 export const NO_INSTANCES_FOUND_MESSAGE = 'No Webhook Instances were found.';
@@ -141,4 +142,8 @@ export const resetMessage = () => ({
 
 export const getAppParams = () => ({
   type: GET_APP_PARAMS,
+});
+
+export const updateRooms = () => ({
+  type: UPDATE_ROOMS,
 });

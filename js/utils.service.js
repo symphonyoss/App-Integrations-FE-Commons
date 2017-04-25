@@ -2,7 +2,7 @@
 /* eslint-disable no-debugger */
 export const Utils = (function utils() {
   const pub = {};
-  const userRooms = [];
+  let userRooms = [];
 
   const timestampToDate = (_ts) => {
     const date = new Date(Number(_ts));
@@ -101,7 +101,7 @@ export const Utils = (function utils() {
 
   pub.getUserRooms = (rooms) => {
     const regExp = /\//g;
-
+    userRooms = [];
     for (const obj in rooms) {
       if (rooms[obj].userIsOwner) {
         rooms[obj].threadId = rooms[obj].threadId.replace(regExp, '_').replace('==', '');

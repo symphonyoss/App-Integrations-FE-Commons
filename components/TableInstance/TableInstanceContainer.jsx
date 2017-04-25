@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import {
-  getInstanceList,
+  getInstanceList as getList,
   getInstanceInfo,
   showNoInstancesFound as showNotFound,
   resetMessage as callResetMessage,
@@ -21,7 +21,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getInstanceList: () => { dispatch(getInstanceList()); },
+  getInstanceList: () => { dispatch(getList()); },
   showEditInstanceView: (_instance) => { dispatch(getInstanceInfo(_instance)); },
   showNoInstancesFound: () => { dispatch(showNotFound()); },
   resetMessage: () => { dispatch(callResetMessage()); },

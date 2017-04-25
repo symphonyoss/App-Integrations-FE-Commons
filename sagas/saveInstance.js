@@ -35,7 +35,10 @@ export function* saveInstance() {
     instance.instanceId = response.instanceId;
     instance.lastPosted = response.lastModifiedDate;
     yield put({ type: SUCCESSFULLY_CREATED, instance });
-    yield call(sendWelcomeMessage, instance);
+    try {
+      yield call(sendWelcomeMessage, instance);
+    } catch(e) {}
+    
   } catch (error) {
     yield put({ type: FAILED_OPERATION });
   }
