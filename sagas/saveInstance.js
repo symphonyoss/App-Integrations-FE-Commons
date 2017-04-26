@@ -35,10 +35,11 @@ export function* saveInstance() {
     instance.instanceId = response.instanceId;
     instance.lastPosted = response.lastModifiedDate;
     yield put({ type: SUCCESSFULLY_CREATED, instance });
-    try {
-      yield call(sendWelcomeMessage, instance);
-    } catch(e) {}
-    
+    if (state.instanceList.instances.filter(item => item.streamType === 'IM').length === 0) {
+      try {
+        yield call(sendWelcomeMessage, instance);
+      } catch(e) {}
+    }
   } catch (error) {
     yield put({ type: FAILED_OPERATION });
   }
