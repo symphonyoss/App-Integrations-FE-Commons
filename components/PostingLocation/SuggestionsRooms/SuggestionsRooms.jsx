@@ -28,9 +28,26 @@ export class SuggestionsRooms extends Component {
     this.addFilter = this.addFilter.bind(this);
     this.removeFilter = this.removeFilter.bind(this);
     this.sort = this.sort.bind(this);
+    this.setupSuggestionsList = this.setupSuggestionsList.bind(this);
   }
 
   componentWillMount() {
+    this.setupSuggestionsList();
+  }
+
+  componentDidMount() {
+    this.input.focus();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.userRooms !== this.props.userRooms) {
+      this.setState({
+        suggestionsList: nextProps.userRooms.slice(),
+      });
+    }
+  }
+
+  setupSuggestionsList() {
     const _suggestions = this.props.userRooms.slice();
     this.sort(_suggestions, 'name');
     if (this.props.filters.length > 0) {
@@ -71,11 +88,8 @@ export class SuggestionsRooms extends Component {
     }
   }
 
-  componentDidMount() {
-    this.input.focus();
-  }
-
   onChangeSearch(e) {
+    this.props.updateRooms();
     const target = e.target;
     if (target.value === '') {
       this.setState({
@@ -320,6 +334,7 @@ SuggestionsRooms.propTypes = {
   removeStreamFromInstance: PropTypes.func.isRequired,
   resetPostingLocation: PropTypes.func.isRequired,
   userRooms: PropTypes.arrayOf(PropTypes.object).isRequired,
+  updateRooms: PropTypes.func.isRequired,
   filters: PropTypes.arrayOf(PropTypes.object),
 };
 
