@@ -3,6 +3,7 @@ import {
   setInstance,
   addMembership,
   editInstance as callEditInstance,
+  sendWelcomeMessage,
 } from './apiCalls';
 
 export function* editInstance() {
@@ -24,6 +25,14 @@ export function* editInstance() {
     }
     yield call(callEditInstance, state);
     yield put({ type: 'SUCCESSFULLY_UPDATED' });
+    if (
+        state.instanceList.instances.filter(item => item.streamType === 'IM').length === 0 ||
+        state.instance.streamType === 'CHATROOM'
+      ) {
+      try {
+        yield call(sendWelcomeMessage, state.instance);
+      } catch(e) {}
+    }
   } catch (error) {
     yield put({ type: 'FETCH_FAILED', error });
     yield put({ type: 'FAILED_OPERATION' });
