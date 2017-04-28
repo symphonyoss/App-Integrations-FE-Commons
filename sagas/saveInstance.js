@@ -42,7 +42,7 @@ export function* saveInstance() {
       try {
         yield call(sendWelcomeMessage, instance);
       } catch(e) {}
-    }
+    } 
   } catch (error) {
     yield put({ type: FAILED_OPERATION });
   }
