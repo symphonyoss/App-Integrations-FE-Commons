@@ -58,9 +58,14 @@ export const Utils = (function utils() {
     // store all posting location rooms into instances...
     instances.map((instance) => {
       if (instance.streamType === 'CHATROOM') {
-        instance.streams.map(stream =>
-          instance.postingLocationRooms.push(
-            userRooms.filter(userRoom => stream === userRoom.threadId)[0])
+        instance.streams.map(stream => {
+            // remove deactivated rooms from user rooms list
+            if (userRooms.filter(userRoom => stream === userRoom.threadId).length > 0) {
+              instance.postingLocationRooms.push(
+                userRooms.filter(userRoom => stream === userRoom.threadId)[0]
+              )
+            }
+          }
         );
       }
       return instance;
