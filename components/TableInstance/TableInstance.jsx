@@ -9,12 +9,24 @@ import './styles/styles.less';
 class TableInstance extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      counter: 10,
+    };
+    this._timer = this._timer.bind(this);
     this.onClickEdit = this.onClickEdit.bind(this);
     this.onClickRemove = this.onClickRemove.bind(this);
   }
 
   componentWillMount() {
     this.props.getInstanceList();
+  }
+
+  componentDidMount() {
+    this.intervalId = setInterval(this._timer, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -42,11 +54,24 @@ class TableInstance extends Component {
     hashHistory.push('/remove-view');
   }
 
+  _timer() {
+    if (this.state.counter > 0) {
+      this.setState({
+        counter: this.state.counter - 1,
+      });
+      if (this.state.counter === 0 && this.props.loading) {
+        this.props.defaultError();
+      }
+      return;
+    }
+    clearInterval(this.intervalId);
+  }
+
   render() {
     return (
       <div>
         {
-          this.props.loading && (<Spinner />)
+          this.props.loading && this.state.counter > 0 && (<Spinner />)
         }
         <div className='wrapper table-instance'>
           <table className={this.props.loading ? 'instances' : 'instances table-opacity-1'}>
@@ -101,6 +126,9 @@ TableInstance.propTypes = {
   resetMessage: PropTypes.func.isRequired,
   typeMessage: PropTypes.string.isRequired,
   showNoInstancesFound: PropTypes.func.isRequired,
+  messageType: PropTypes.string.isRequired,
+  messageText: PropTypes.arrayOf(PropTypes.string).isRequired,
+  defaultError: PropTypes.func.isRequired,
 };
 
 export default TableInstance;

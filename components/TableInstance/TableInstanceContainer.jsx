@@ -4,6 +4,7 @@ import {
   getInstanceInfo,
   showNoInstancesFound as showNotFound,
   resetMessage as callResetMessage,
+  defaultError as showError,
 } from '../../actions';
 
 import TableInstance from './TableInstance';
@@ -18,6 +19,8 @@ const mapStateToProps = state => ({
   loading: state.instanceList.loading,
   typeMessage: state.message.type,
   baseWebHookURL: state.instance.baseWebHookURL,
+  messageType: state.message.type,
+  messageText: state.message.text,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -25,6 +28,7 @@ const mapDispatchToProps = dispatch => ({
   showEditInstanceView: (_instance) => { dispatch(getInstanceInfo(_instance)); },
   showNoInstancesFound: () => { dispatch(showNotFound()); },
   resetMessage: () => { dispatch(callResetMessage()); },
+  defaultError: () => { dispatch(showError()); },
 });
 
 const TableInstanceContainer = connect(

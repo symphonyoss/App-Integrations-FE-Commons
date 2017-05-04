@@ -120,6 +120,10 @@ export const showRequireName = state => ({
   type: REQUIRED_NAME,
 });
 
+export const defaultError = state => ({
+  type: FAILED_OPERATION,
+});
+
 export const hideRequireName = state => ({
   type: HIDE_REQUIRE_NAME,
 });
