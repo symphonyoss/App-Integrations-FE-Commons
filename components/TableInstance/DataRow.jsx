@@ -54,15 +54,20 @@ class DataRow extends Component {
           {
             this.props.instance.streamType === 'IM' ?
               <span>One on one chat with {this.props.instance.imShortHand}</span> :
-              <ul className='active-in'>
-                {
-                  this.props.instance.postingLocationRooms.map((room, idx) =>
-                    <li key={idx}>
-                      <span>{room.name}</span>
-                    </li>
-                  )
-                }
-              </ul>
+              (
+                this.props.instance.postingLocationRooms.length > 0 ?
+                (
+                  <ul className='active-in'>
+                    {
+                      this.props.instance.postingLocationRooms.map((room, idx) =>
+                        <li key={idx}>
+                          <span>{room.name}</span>
+                        </li>
+                      )
+                    }
+                  </ul>
+                ) : <span>Deactivated room</span>
+              )
           }
         </td>
         <td>
