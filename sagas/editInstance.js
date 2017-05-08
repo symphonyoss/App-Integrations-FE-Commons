@@ -9,25 +9,29 @@ import {
 
 export function* editInstance() {
   let imStream;
+  let status = {};
   try {
     const state = yield select();
     yield call(setInstance, state.instance);
     if (state.instance.streamType === 'IM') {
       imStream = yield call(createIM);
-      state.instance.streams.push(imStream.id);
+      if (imStream.id !== undefined) {
+        status.message = 'Member added';
+        state.instance.streams = [imStream.id];
+      }
     } else if (state.instance.streamType === 'CHATROOM') {
       if (state.instance.streams.length > 0) {
         for (const stream in state.instance.streams) {
           if (state.instance.streams[stream]) {
-            try {
-              yield call(addMembership, state.instance.streams[stream]);
-            } catch (error) {
-              yield put({ type: 'ADD_MEMBER_SHIP_FAILED', error });
-            }
+            status = yield call(addMembership, state.instance.streams[stream]);
           }
         }
       }
     }
+    if (
+      status.message === 'Member added' ||
+      status.message === 'Member already part of the room or Xpod request will be processed asynchronously'
+    ) {
     yield call(callEditInstance, state);
     yield put({ type: 'SUCCESSFULLY_UPDATED' });
     if (
@@ -38,8 +42,10 @@ export function* editInstance() {
         yield call(sendWelcomeMessage, state.instance);
       } catch(e) {}
     }
+  } else {
+    yield put({ type: 'FAILED_OPERATION' });
+  }
   } catch (error) {
-    yield put({ type: 'FETCH_FAILED', error });
     yield put({ type: 'FAILED_OPERATION' });
   }
 }
