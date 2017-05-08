@@ -3,14 +3,19 @@ import {
   setInstance,
   addMembership,
   editInstance as callEditInstance,
+  createIM,
   sendWelcomeMessage,
 } from './apiCalls';
 
 export function* editInstance() {
+  let imStream;
   try {
     const state = yield select();
     yield call(setInstance, state.instance);
-    if (state.instance.streamType === 'CHATROOM') {
+    if (state.instance.streamType === 'IM') {
+      imStream = yield call(createIM);
+      state.instance.streams.push(imStream.id);
+    } else if (state.instance.streamType === 'CHATROOM') {
       if (state.instance.streams.length > 0) {
         for (const stream in state.instance.streams) {
           if (state.instance.streams[stream]) {
