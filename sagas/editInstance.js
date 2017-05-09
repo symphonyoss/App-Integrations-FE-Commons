@@ -9,14 +9,14 @@ import {
 
 export function* editInstance() {
   let imStream;
-  let status = {};
+  let status;
   try {
     const state = yield select();
     yield call(setInstance, state.instance);
     if (state.instance.streamType === 'IM') {
       imStream = yield call(createIM);
       if (imStream.id !== undefined) {
-        status.message = 'Member added';
+        status = 'ok';
         state.instance.streams = [imStream.id];
       }
     } else if (state.instance.streamType === 'CHATROOM') {
@@ -28,23 +28,20 @@ export function* editInstance() {
         }
       }
     }
-    if (
-      status.message === 'Member added' ||
-      status.message === 'Member already part of the room or Xpod request will be processed asynchronously'
-    ) {
-    yield call(callEditInstance, state);
-    yield put({ type: 'SUCCESSFULLY_UPDATED' });
-    if (
-        state.instanceList.instances.filter(item => item.streamType === 'IM').length === 0 ||
-        state.instance.streamType === 'CHATROOM'
+    if (status !== undefined) {
+      yield call(callEditInstance, state);
+      yield put({ type: 'SUCCESSFULLY_UPDATED' });
+      if (
+          state.instanceList.instances.filter(item => item.streamType === 'IM').length === 0 ||
+          state.instance.streamType === 'CHATROOM'
       ) {
-      try {
-        yield call(sendWelcomeMessage, state.instance);
-      } catch(e) {}
+        try {
+          yield call(sendWelcomeMessage, state.instance);
+        } catch(e) {}
+      }
+    } else {
+      yield put({ type: 'FAILED_OPERATION' });
     }
-  } else {
-    yield put({ type: 'FAILED_OPERATION' });
-  }
   } catch (error) {
     yield put({ type: 'FAILED_OPERATION' });
   }
