@@ -6,7 +6,9 @@ function setup() {
   const props = {
     streamType: 'IM',
     instance: { instanceId: 0 },
-    switchStreamType: () => { this.props.streamType = 'CHATROOM' },
+    instanceList: [],
+    switchStreamType: jest.fn(),
+    appName: 'Jira',
   }
 
   const enzymeWrapper = shallow(<PostingLocation {...props} />);
@@ -28,7 +30,7 @@ describe('Testing PostingLocation behavior', () => {
     const { props } = setup();
     props.streamType = 'CHATROOM';
     const enzymeWrapper = shallow(<PostingLocation {...props} />);
-    expect(enzymeWrapper.find('input#CHATROOM').prop('checked')).toEqual(true);
+    expect(enzymeWrapper.find('input#chat-room').prop('checked')).toEqual(true);
   });
 
 });

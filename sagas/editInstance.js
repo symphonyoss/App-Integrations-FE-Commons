@@ -3,6 +3,7 @@ import {
   setInstance,
   addMembership,
   editInstance as callEditInstance,
+  createIM,
   sendWelcomeMessage,
   createIM,
 } from './apiCalls';
