@@ -1,6 +1,6 @@
 {
   "name": "symphony-integration-commons",
-  "version": "0.1.19",
+  "version": "0.1.20",
   "description": "Common components for 3rd party developers build the user facing application for Symphony Integrations.",
   "main": "./dist/index.js",
   "scripts": {
@@ -37,11 +37,12 @@
     "babel-preset-stage-0": "^6.22.0",
     "enzyme": "^2.7.1",
     "jest": "^18.1.0",
+    "prop-types": "^15.5.8",
     "react": "^15.3.2",
-    "react-addons-test-utils": "^15.4.2",
-    "react-dom": "^15.4.2",
+    "react-dom": "^15.5.4",
     "react-redux": "^5.0.2",
     "react-router": "^3.0.2",
+    "react-test-renderer": "^15.5.4",
     "redux": "^3.6.0",
     "redux-saga": "^0.14.3",
     "sinon": "^2.1.0"

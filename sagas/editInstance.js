@@ -3,38 +3,46 @@ import {
   setInstance,
   addMembership,
   editInstance as callEditInstance,
+  createIM,
   sendWelcomeMessage,
 } from './apiCalls';
 
 export function* editInstance() {
+  let imStream;
+  let status;
   try {
     const state = yield select();
     yield call(setInstance, state.instance);
-    if (state.instance.streamType === 'CHATROOM') {
+    if (state.instance.streamType === 'IM') {
+      imStream = yield call(createIM);
+      if (imStream.id !== undefined) {
+        status = 'ok';
+        state.instance.streams = [imStream.id];
+      }
+    } else if (state.instance.streamType === 'CHATROOM') {
       if (state.instance.streams.length > 0) {
         for (const stream in state.instance.streams) {
           if (state.instance.streams[stream]) {
-            try {
-              yield call(addMembership, state.instance.streams[stream]);
-            } catch (error) {
-              yield put({ type: 'ADD_MEMBER_SHIP_FAILED', error });
-            }
+            status = yield call(addMembership, state.instance.streams[stream]);
           }
         }
       }
     }
-    yield call(callEditInstance, state);
-    yield put({ type: 'SUCCESSFULLY_UPDATED' });
-    if (
-        state.instanceList.instances.filter(item => item.streamType === 'IM').length === 0 ||
-        state.instance.streamType === 'CHATROOM'
+    if (status !== undefined) {
+      yield call(callEditInstance, state);
+      yield put({ type: 'SUCCESSFULLY_UPDATED' });
+      if (
+          state.instanceList.instances.filter(item => item.streamType === 'IM').length === 0 ||
+          state.instance.streamType === 'CHATROOM'
       ) {
-      try {
-        yield call(sendWelcomeMessage, state.instance);
-      } catch(e) {}
+        try {
+          yield call(sendWelcomeMessage, state.instance);
+        } catch(e) {}
+      }
+    } else {
+      yield put({ type: 'FAILED_OPERATION' });
     }
   } catch (error) {
-    yield put({ type: 'FETCH_FAILED', error });
     yield put({ type: 'FAILED_OPERATION' });
   }
 }
