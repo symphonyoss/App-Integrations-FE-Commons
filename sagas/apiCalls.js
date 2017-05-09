@@ -115,10 +115,10 @@ export const removeInstance = (state) => {
     configurationId, state.instanceId);
 };
 
-export const sendWelcomeMessage = (state) => {
-  const url = `${baseWebHookURL}/${state.instanceId}/welcome`;
+export const sendWelcomeMessage = (instanceId, streams) => {
+  const url = `${baseWebHookURL}/${instanceId}/welcome`;
   const payload = {
-    streams: state.streams,
+    streams,
   };
   axios.post(url, payload)
   .then(data => data)
