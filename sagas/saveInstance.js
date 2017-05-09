@@ -40,7 +40,7 @@ export function* saveInstance() {
         instance.streamType === 'CHATROOM'
       ) {
       try {
-        yield call(sendWelcomeMessage, instance);
+        yield call(sendWelcomeMessage, instance.instanceId, instance.streams);
       } catch(e) {}
     } 
   } catch (error) {
