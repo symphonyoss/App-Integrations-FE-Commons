@@ -66,7 +66,7 @@ class DataRow extends Component {
                       )
                     }
                   </ul>
-                ) : <span>Deactivated room</span>
+                ) : <span>Inaccessible room</span>
               )
           }
         </td>
