@@ -34,12 +34,14 @@ The components used in this sample are:
 
 ### Running the sample locally from bundle.json
 This sample is deliverid with a *bundle.json* file. This file allows you to run the app directly from your symphony pod. In order to run the app with the bundle.json file you should follow these steps:
-1. Add the alias `127.0.0.1         localhost.symphony.com` to your `/etc/hosts` file.
-2. run the app with `npm run watch` command
-3. Visit `https://localhost.symphony.com/bundle.json` in your browser and accept the certificate.
-4. Visit your symphony pod, and, in the address bar, paste the following at the end of the url:  `?bundle=https://localhost.symphony.com/bundle.json`. 
-5. Reload the page and you'll see an modal window asking you to allow the appliction to run. Check the _I have verified the app configurations_ checkbox. 
-6. Find your application in the _Symphony market_ on your pod, click _Add_, and then, _Configure_.
+1. Add the alias `127.0.0.1         localhost` to your `/etc/hosts` file.
+2. Change directory to the `samples` folder
+3. Install packages with `npm install`
+4. Run the app with `npm run watch` command
+5. Visit `https://localhost:4000/bundle.json` in your browser and accept the certificate.
+6. Visit your symphony pod, and, in the address bar, paste the following at the end of the url:  `?bundle=https://localhost:4000/bundle.json`. 
+7. Reload the page and you'll see an modal window asking you to allow the appliction to run. Check the _I have verified the app configurations_ checkbox. 
+8. Find your application in the _Symphony market_ on your pod, click _Add_, and then, _Configure_.
 
 [commons]: https://www.npmjs.com/package/symphony-integration-commons
 [eslint]: http://eslint.org/

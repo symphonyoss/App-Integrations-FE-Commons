@@ -1,8 +1,8 @@
 export default ({
-  appTitle: 'Configure My App',
-  appName: 'My Custom App',
-  appSubTitle: 'My App Integration',
-  appIMShortHand: 'My Custom App',
+  appTitle: 'Configure Posting Location Sample',
+  appName: 'Posting Location Sample',
+  appSubTitle: 'Posting Location Sample Integration',
+  appIMShortHand: 'Posting Location Sample',
   appToggleSetupInstructions: true,
-  appLogo: 'custom_logo.png',
+  appLogo: 'universal_logo.png',
 });
