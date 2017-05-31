@@ -34,13 +34,8 @@ For The components used in the posting-location-sample are:
 
 ### Running the sample locally from bundle.json
 This sample is deliverid with a *bundle.json* file. This file allows you to run the app directly from your symphony pod. In order to run the app with the bundle.json file you should follow these steps:
-<<<<<<< Updated upstream
-1. Add the alias `127.0.0.1         localhost` to your `/etc/hosts` file.
-2. Change directory to the `samples` folder
-=======
 1. Add the alias `127.0.0.1 localhost` to your `/etc/hosts` file.
 2. Change directory to the `samples/posting-location-sample` folder
->>>>>>> Stashed changes
 3. Install packages with `npm install`
 4. Run the app with `npm run watch` command
 5. Visit `https://localhost:4000/bundle.json` in your browser and accept the certificate.
