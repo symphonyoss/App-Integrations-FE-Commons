@@ -34,6 +34,8 @@
         background: none !important;
       }
 
+      input::-ms-clear {display: none}
+
       button {
         width: 2.188rem;
         height: @search-height;
@@ -42,7 +44,6 @@
         border: none;
         cursor: pointer;
 
-        &.visible { display: flex }
         &.hidden { display: none }
       }
     }
