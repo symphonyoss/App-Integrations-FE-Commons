@@ -17,7 +17,7 @@ In order to run the configurator sample you'll need [Node 6.10.x][node] and [npm
 2. In the out-of-the-box sample folder run `npm install`
 3. After installing the dependencies run `npm run watch`
 
-The samples folder is set up with multiple development samples built up with [webpack][webpack] and [eslint][eslint]. Every time you change a file and save it, eslint checks your code sintaxe and webpack reloads your browser. This sample is buit up with React and some imported components from this repo.
+The samples folder is set up with multiple development samples built up with [webpack][webpack] and [eslint][eslint]. Every time you change a file and save it, eslint checks your code sintaxe and webpack bundles it automatically. This sample is buit up with React and some imported components from this repo.
 
 ### Running the sample locally from bundle.json
 This sample is deliverid with a *bundle.json* file. This file allows you to run the app directly from your symphony pod. In order to run the app with the bundle.json file you should follow these steps:

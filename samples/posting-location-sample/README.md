@@ -23,7 +23,7 @@ In order to run the configurator sample you'll need [Node 6.10.x][node] and [npm
 2. In the posting-location-sample folder root run `npm install`
 3. After installing the dependencies run `npm run watch`
 
-The samples folder is set up with multiple development samples built up with [webpack][webpack] and [eslint][eslint]. Every time you change a file and save it, eslint checks your code sintaxe and webpack reloads your browser. This sample is buit up with React and some imported components from this repo.
+The samples folder is set up with multiple development samples built up with [webpack][webpack] and [eslint][eslint]. Every time you change a file and save it, eslint checks your code sintaxe and webpack bundles it automatically. This sample is buit up with React and some imported components from this repo.
 
 For The components used in the posting-location-sample are:
 1. TableInstance - shows a list of configured instances, as well as two action buttons (remove and edit).
