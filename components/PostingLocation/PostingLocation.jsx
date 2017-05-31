@@ -47,7 +47,7 @@ export class PostingLocation extends Component {
               {
                 this.props.instanceList.filter(item => item.streamType === 'IM').length > 0 ? (
                   `Existing one-on-one chat with ${this.props.appName}`
-                ) : `New one-on-one chat ${this.props.appName}`
+                ) : `New one-on-one chat with ${this.props.appName}`
               }
             </label>
           </div>
