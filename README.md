@@ -1,4 +1,10 @@
-[![Symphony Software Foundation - Incubating](https://cdn.rawgit.com/symphonyoss/contrib-toolbox/master/images/ssf-badge-incubating.svg)](https://symphonyoss.atlassian.net/wiki/display/FM/Incubating) [![Build Status](https://travis-ci.org/symphonyoss/App-Integrations-FE-Commons.svg?branch=dev)](https://travis-ci.org/symphonyoss/App-Integrations-FE-Commons) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+[![Symphony Software Foundation - Incubating](https://cdn.rawgit.com/symphonyoss/contrib-toolbox/master/images/ssf-badge-incubating.svg)](https://symphonyoss.atlassian.net/wiki/display/FM/Incubating)
+[![Build Status](https://travis-ci.org/symphonyoss/App-Integrations-FE-Commons.svg?branch=dev)](https://travis-ci.org/symphonyoss/App-Integrations-FE-Commons)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+[![bitHound Overall Score](https://www.bithound.io/github/symphonyoss/App-Integrations-FE-Commons/badges/score.svg)](https://www.bithound.io/github/symphonyoss/App-Integrations-FE-Commons)
+[![bitHound Dependencies](https://www.bithound.io/github/symphonyoss/App-Integrations-FE-Commons/badges/dependencies.svg)](https://www.bithound.io/github/symphonyoss/App-Integrations-FE-Commons/dev/dependencies/npm)
+[![bitHound Dev Dependencies](https://www.bithound.io/github/symphonyoss/App-Integrations-FE-Commons/badges/devDependencies.svg)](https://www.bithound.io/github/symphonyoss/App-Integrations-FE-Commons/dev/dependencies/npm)
+[![bitHound Code](https://www.bithound.io/github/symphonyoss/App-Integrations-FE-Commons/badges/code.svg)](https://www.bithound.io/github/symphonyoss/App-Integrations-FE-Commons)
 
 # Integrations Front-End Commons Documentation
 
