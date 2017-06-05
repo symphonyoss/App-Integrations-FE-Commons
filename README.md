@@ -32,7 +32,7 @@ To start from scratch, do the following:
 3. Build using npm: `npm install`
 
 ## Publishing
-The "Integration Front-End Commons" library is published on npm registry via Travis. In order to publish your changes, submit a Github Pull Request to the "dev" branch bumping the version at [bundle.json](bundle.json), and the changes will be publish at https://www.npmjs.com/package/symphony-integration-commons.
+The "Integration Front-End Commons" library is published on npm registry via Travis. In order to publish your changes, submit a Github Pull Request to the "dev" branch bumping the version at [package.json](package.json), and the changes will be publish at https://www.npmjs.com/package/symphony-integration-commons.
 
 ## Samples
 To understand how to use the componentes provided by the "Integration Front-End Commons", check the following samples: [posting-location-sample](samples/posting-location-sample/README.md) and [out-of-the-box-configurator](samples/out-of-the-box-configurator).
