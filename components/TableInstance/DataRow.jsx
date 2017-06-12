@@ -98,7 +98,7 @@ class DataRow extends Component {
           </div>
         </td>
         <td>
-          <span>{this.props.instance.lastPosted}</span>
+          <span className="date-container">{this.props.instance.lastPosted}</span>
         </td>
         <td>
           <ul>

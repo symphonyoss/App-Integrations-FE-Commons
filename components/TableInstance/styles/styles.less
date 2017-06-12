@@ -11,8 +11,8 @@
     justify-content: flex-start;
     margin-bottom: 1.25rem;
     align-content: center;
-    
-    h2 { 
+
+    h2 {
       padding: 0.3125rem 0.625rem 0 0;
       margin: 0;
     }
@@ -24,11 +24,11 @@
     max-width: @table-max-width;
     opacity: 0;
     transition: opacity .5s ease;
-    
+
     thead tr { padding-bottom: 1.25rem; }
 
     tr th {
-      
+
       span {
         display: block;
         box-sizing: border-box;
@@ -42,7 +42,7 @@
       padding: 0.625rem 0.625rem 0.25rem 0.3125rem;
       border-bottom: 1px solid rgba(0, 0, 0, 0.1);
       overflow: hidden;
-      
+
       &:nth-child(1) { width: 15%; }
 
       &:nth-child(2) { width: 20%; }
@@ -53,8 +53,8 @@
 
       &:nth-child(5) { width: 20%; }
 
-      span, label, a { 
-        font-size: @table-font-size;  
+      span, label, a {
+        font-size: @table-font-size;
       }
 
       ul {
@@ -95,6 +95,7 @@
         a {
           display: flex;
           width: 3.90rem;
+          white-space: nowrap;
         }
 
         @media only screen and (max-width: @breakpoint-width) {
@@ -102,6 +103,10 @@
 
           .webhookurl { display: none; }
         }
+      }
+
+      .date-container {
+        white-space: nowrap;
       }
     }
 
@@ -136,5 +141,3 @@
     }
   }
 }
-
-
