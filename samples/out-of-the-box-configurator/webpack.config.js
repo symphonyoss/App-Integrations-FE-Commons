@@ -7,7 +7,9 @@ module.exports = {
   entry: {
     // babelPolyfill: 'babel-polyfill',
     controller: path.resolve(__dirname, "./js/controller.js"),
-    app: path.resolve(__dirname, "./js/app.jsx")
+    app: path.resolve(__dirname, "./js/app.jsx"),
+    bootstrap: path.resolve(__dirname, "./js/bootstrap.js"),
+    renderer: path.resolve(__dirname, "./js/renderer.js"),
   },
   output: {
     path: path.resolve(__dirname, "./dist"),
@@ -70,6 +72,8 @@ module.exports = {
     contentBase: path.resolve(__dirname, './dist'),
     port: 4000,
     inline: true,
+    host: "0.0.0.0",
+    disableHostCheck: true,
     headers: {
       "Access-Control-Allow-Origin": "*"
     }
