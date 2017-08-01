@@ -43,7 +43,7 @@ export default class Renderer {
           label: '',
           service: this.serviceName,
           data: {
-            // user: this.bootstrap.getUserId(),
+            user: this.bootstrap.getUserId(),
           },
         },
       },
