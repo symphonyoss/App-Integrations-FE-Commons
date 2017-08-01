@@ -7,9 +7,7 @@ module.exports = {
   entry: {
     // babelPolyfill: 'babel-polyfill',
     controller: path.resolve(__dirname, "./js/controller.js"),
-    app: path.resolve(__dirname, "./js/app.jsx"),
-    bootstrap: path.resolve(__dirname, "./js/bootstrap.js"),
-    renderer: path.resolve(__dirname, "./js/renderer.js"),
+    app: path.resolve(__dirname, "./js/app.jsx")
   },
   output: {
     path: path.resolve(__dirname, "./dist"),

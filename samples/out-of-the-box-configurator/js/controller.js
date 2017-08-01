@@ -10,9 +10,12 @@ import Renderer from './renderer';
 * @param          appTitle          The app title should appear in the title bar
 */
 const bootstrap = new Bootstrap();
+window.alert('new Bootstrap');
 bootstrap.register();
 const renderer = new Renderer();
+window.alert('new Renderer');
 renderer.register();
+window.alert('Bootstrap start');
 bootstrap.start();
 
 // register(SYMPHONY, config.appTitle);
