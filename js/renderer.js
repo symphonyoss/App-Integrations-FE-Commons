@@ -1,13 +1,18 @@
+var _utils = require('./utils.service');
+var params = {
+  appId: _utils.Utils.getParameterByName('id'),
+};
+
 export default class Renderer {
   constructor() {
-    this.serviceName = 'sampleMyApp:renderer';
+    this.serviceName = params.appId + ':renderer';
     this.importServices = 'entity';
     this.implements = ['render', 'action'];
   }
 
   register() {
     SYMPHONY.services.make(this.serviceName, this, this.implements, true);
-    this.bootstrap = SYMPHONY.services.subscribe('sampleMyApp:bootstrap');
+    this.bootstrap = SYMPHONY.services.subscribe(params.appId + ':bootstrap');
 
     this.bootstrap.importService(this.importServices);
     this.bootstrap.exportService(this.serviceName);
@@ -53,7 +58,6 @@ export default class Renderer {
 
   onReady() {
     this.entity = SYMPHONY.services.subscribe('entity');
-    console.error('entity', this.entity);
     this.entity.registerRenderer('com.symphony.integration.jira.event.v2.state', {}, this.serviceName);
   }
 }

@@ -29,6 +29,7 @@ import SpinnerComponent from './components/Spinner/Spinner';
 import SubmitInstanceComponent from './components/SubmitInstance/SubmitInstanceContainer';
 import TableInstanceComponent from './components/TableInstance/TableInstanceContainer';
 import WebHookURLComponent from './components/WebHookURLCopy/WebHookURLCopy';
+import { RendererParentComponent } from './js/renderer-parent';
 // Views
 import HomeScreen from './views/Home';
 import CreateScreen from './views/CreateView';
@@ -46,6 +47,7 @@ export const PostingLocationInfo = PostingLocationInfoComponent;
 export const Spinner = SpinnerComponent;
 export const SubmitInstance = SubmitInstanceComponent;
 export const WebHookURL = WebHookURLComponent;
+export const RendererParent = RendererParentComponent;
 
 export const TableInstance = TableInstanceComponent;
 export const WebHookURLCopy = WebHookURLComponent;
@@ -91,7 +93,9 @@ const dependencies = [
 * @params       appTitle                    title that should be shown on title bar
 * @return       SYMPHONY.remote.hello       returns a SYMPHONY remote hello service.
 */
-export const register = (SYMPHONY, appTitle) => {
+export const register = (SYMPHONY, appTitle, paramReceivedImport, paramReceivedExport) => {
+  window.alert(paramReceivedImport);
+  window.alert(paramReceivedExport);
   // create our own service
   const listService = SYMPHONY.services.register(`${params.appId}:controller`);
   function registerApplication() {
