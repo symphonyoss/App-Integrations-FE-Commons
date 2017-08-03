@@ -1,15 +1,15 @@
 import 'babel-polyfill';
 import { register } from 'symphony-integration-commons';
 import Bootstrap from './bootstrap';
-import Renderer from './renderer';
+import RendererComponent from './RendererComponent';
 import config from './config.service';
 
-export const RendererParentComponent = (function rendererParent() {
+export const RendererStarterAPI = (function rendererStarter() {
     var pub = {};
     pub.start = () => {
         const bootstrap = new Bootstrap();
         bootstrap.register();
-        const renderer = new Renderer();
+        const renderer = new RendererComponent();
         renderer.register();
         bootstrap.start();
     }

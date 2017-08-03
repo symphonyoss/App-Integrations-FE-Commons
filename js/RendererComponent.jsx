@@ -3,7 +3,7 @@ var params = {
   appId: _utils.Utils.getParameterByName('id'),
 };
 
-export default class Renderer {
+export default class RendererComponent {
   constructor() {
     this.serviceName = params.appId + ':renderer';
     this.importServices = 'entity';

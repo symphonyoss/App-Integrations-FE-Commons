@@ -1,5 +1,5 @@
 import 'babel-polyfill';
-import { register, RendererParent } from 'symphony-integration-commons';
+import { register, RendererStarter } from 'symphony-integration-commons';
 import config from './config.service';
 
 /*
@@ -8,4 +8,4 @@ import config from './config.service';
 * @param          appTitle          The app title should appear in the title bar
 */
 register(SYMPHONY, config.appTitle, 'importsToRegister', 'exportToRegister');
-RendererParent.start();
+RendererStarter.start();
