@@ -47,6 +47,8 @@ export const getParams = () => config.getParams();
 
 export const getInstructions = () => config.getInstructions();
 
+export const getMessageTemplate = () => config.getMessageTemplate();
+
 export const getList = () => {
   const integrationConfService = SYMPHONY.services.subscribe('integration-config');
   return integrationConfService.getConfigurationInstanceList(configurationId)

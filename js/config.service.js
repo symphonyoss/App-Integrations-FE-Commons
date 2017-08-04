@@ -2,6 +2,7 @@ const config = (function () {
   const pub = {};
   let params = {};
   let instructions;
+  let messageTemplate;
 
   pub.setParams = (values) => {
     params = Object.assign({}, values);
@@ -14,6 +15,13 @@ const config = (function () {
   };
 
   pub.getInstructions = () => instructions;
+
+  pub.setMessageTemplate = (template) => {
+    messageTemplate = template;
+  };
+
+  pub.getMessageTemplate = () => messageTemplate;
+
 
   return pub;
 }());

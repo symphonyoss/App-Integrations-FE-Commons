@@ -4,6 +4,7 @@ import { getRooms } from './getRooms';
 import { getParams } from './getParams';
 import { getInstructions } from './getInstructions';
 import { watchfier } from './watchfier';
+import { getMessageTemplate } from './getMessageTemplate';
 
 function* rootSaga() {
   yield [
@@ -12,6 +13,7 @@ function* rootSaga() {
     fork(getUserId),
     fork(getRooms),
     fork(watchfier),
+    fork(getMessageTemplate),
   ];
 }
 

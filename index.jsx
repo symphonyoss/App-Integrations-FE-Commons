@@ -195,6 +195,15 @@ export const connect = (SYMPHONY, config, Routes, elem, Instructions) => {
   }
   return SYMPHONY.remote.hello().then(helloApplication);
 };
+
+export const connectMessageRenderer = (MessageTemplate) => {
+  const store = configureStore();
+    render(
+      <Provider store={store}>
+      </Provider>,
+      elem
+    );
+}; 
 /* import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
