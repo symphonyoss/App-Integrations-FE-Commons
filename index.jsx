@@ -29,8 +29,8 @@ import SpinnerComponent from './components/Spinner/Spinner';
 import SubmitInstanceComponent from './components/SubmitInstance/SubmitInstanceContainer';
 import TableInstanceComponent from './components/TableInstance/TableInstanceContainer';
 import WebHookURLComponent from './components/WebHookURLCopy/WebHookURLCopy';
-import { RendererStarterAPI } from './js/renderer-starter';
-import RendererComponent from './js/RendererComponent';
+import RendererStarterAPI from './js/renderer-starter';
+import RendererContainer from './js/RendererContainer';
 // Views
 import HomeScreen from './views/Home';
 import CreateScreen from './views/CreateView';
@@ -49,7 +49,7 @@ export const Spinner = SpinnerComponent;
 export const SubmitInstance = SubmitInstanceComponent;
 export const WebHookURL = WebHookURLComponent;
 export const RendererStarter = RendererStarterAPI;
-export const Renderer = RendererComponent;
+export const Renderer = RendererContainer;
 
 export const TableInstance = TableInstanceComponent;
 export const WebHookURLCopy = WebHookURLComponent;

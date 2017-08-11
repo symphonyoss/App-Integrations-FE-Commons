@@ -8,4 +8,6 @@ import config from './config.service';
 * @param          appTitle          The app title should appear in the title bar
 */
 register(SYMPHONY, config.appTitle, 'importsToRegister', 'exportToRegister');
-RendererStarter.start();
+
+const renderer = new RendererStarter();
+renderer.start();

@@ -152,3 +152,7 @@ export const getAppParams = () => ({
 export const updateRooms = () => ({
   type: UPDATE_ROOMS,
 });
+
+export const getMessageTemplate = () => ({
+  type: GET_MESSAGE_TEMPLATE,
+});
