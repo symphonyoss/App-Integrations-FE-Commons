@@ -29,8 +29,7 @@ import SpinnerComponent from './components/Spinner/Spinner';
 import SubmitInstanceComponent from './components/SubmitInstance/SubmitInstanceContainer';
 import TableInstanceComponent from './components/TableInstance/TableInstanceContainer';
 import WebHookURLComponent from './components/WebHookURLCopy/WebHookURLCopy';
-import RendererStarterAPI from './js/renderer-starter';
-import RendererContainer from './js/RendererContainer';
+import Renderer from './js/renderer';
 // Views
 import HomeScreen from './views/Home';
 import CreateScreen from './views/CreateView';
@@ -48,8 +47,7 @@ export const PostingLocationInfo = PostingLocationInfoComponent;
 export const Spinner = SpinnerComponent;
 export const SubmitInstance = SubmitInstanceComponent;
 export const WebHookURL = WebHookURLComponent;
-export const RendererStarter = RendererStarterAPI;
-export const Renderer = RendererContainer;
+export const RendererBase = Renderer;
 
 export const TableInstance = TableInstanceComponent;
 export const WebHookURLCopy = WebHookURLComponent;
@@ -87,19 +85,25 @@ const dependencies = [
   'account',
   'stream-service',
   'integration-config',
+  'entity'
 ];
 
 /*
 * register                                  register application on symphony client
 * @params       SYMPHONY                    global variable SYMPHONY returned from SYMPHONY api
 * @params       appTitle                    title that should be shown on title bar
+* @params       renderers                   array of Renderers to be registered in the application
 * @return       SYMPHONY.remote.hello       returns a SYMPHONY remote hello service.
 */
-export const register = (SYMPHONY, appTitle, paramReceivedImport, paramReceivedExport) => {
-  window.alert(paramReceivedImport);
-  window.alert(paramReceivedExport);
+export const register = (SYMPHONY, appTitle, renderers) => {
+  const controllerName = `${params.appId}:controller`;
+
+  let exportedDependencies = renderers ? renderers.map((renderer) => renderer.name) : [];
+  exportedDependencies.push(controllerName);
+
   // create our own service
-  const listService = SYMPHONY.services.register(`${params.appId}:controller`);
+  const listService = SYMPHONY.services.register(controllerName);
+
   function registerApplication() {
     // system services
     const uiService = SYMPHONY.services.subscribe('ui');
@@ -108,7 +112,7 @@ export const register = (SYMPHONY, appTitle, paramReceivedImport, paramReceivedE
     uiService.registerExtension(
       'app-settings',
       params.appId,
-      `${params.appId}:controller`,
+      controllerName,
       { label: 'Configure' }
     );
 
@@ -125,7 +129,7 @@ export const register = (SYMPHONY, appTitle, paramReceivedImport, paramReceivedE
         modulesService.show(
           params.appId,
           { title: appTitle },
-          `${params.appId}:controller`,
+          controllerName,
           url.join(''),
           { canFloat: true },
         );
@@ -133,14 +137,30 @@ export const register = (SYMPHONY, appTitle, paramReceivedImport, paramReceivedE
     });
   }
 
+  function initRenderers() {
+    renderers.forEach((renderer) => {
+      renderer.init();
+    });
+  }
+
+  function registerRenderers() {
+    renderers.forEach((renderer) => {
+      renderer.register();
+    });
+  }
+
   function helloController() {
     SYMPHONY.application.register(
       params.appId,
       dependencies,
-      [`${params.appId}:controller`]
-    ).then(registerApplication);
+      exportedDependencies
+    )
+    .then(registerApplication)
+    .then(registerRenderers);
   }
-  return SYMPHONY.remote.hello().then(helloController);
+  return SYMPHONY.remote.hello()
+  .then(initRenderers)
+  .then(helloController);
 };
 
 /*
@@ -196,14 +216,6 @@ export const connect = (SYMPHONY, config, Routes, elem, Instructions) => {
   return SYMPHONY.remote.hello().then(helloApplication);
 };
 
-export const connectMessageRenderer = (MessageTemplate) => {
-  const store = configureStore();
-    render(
-      <Provider store={store}>
-      </Provider>,
-      elem
-    );
-}; 
 /* import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
