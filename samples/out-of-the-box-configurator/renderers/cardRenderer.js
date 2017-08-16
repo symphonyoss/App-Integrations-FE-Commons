@@ -1,51 +1,35 @@
-import { RendererBase } from 'symphony-integration-commons';
+import { MessageEnricherBase } from 'symphony-integration-commons';
 
 const name = 'card-renderer';
 const messageEvents = ['com.symphony.integration.jira.event.v2.state'];
-export default class CardRenderer extends RendererBase {
+export default class CardRenderer extends MessageEnricherBase {
   constructor() {
     super(name, messageEvents);
   }
 
-  render(type, entityData) {
-    console.log('Renderer called!');
+  enrich(type, entity) {
     const result = {
       template: `
-        <entity>
-          <card>
-          <div className='setup-instructions-content'>
-              Hello
-          </div>
-          <h3>MyApp first custom renderer</h3>
-          Click to say hello
-          <hr/>
-          <action id="sayhello"/>
-          </card>
-        </entity>
-        `,
+        <messageML>
+          <action id="assignTo" class="button tempo-btn"/>
+        </messageML>
+      `,
       data: {
-        // type: entityData.mealType.toLowerCase(),
-        // venue: entityData.venue,
-        card: {
-          icon: 'https://alexandre.symphony.com:4000/img/appstore-logo.png',
-          accent: `tempo-bg-color--green ${entityData.accent}`,
-        },
-        icon: 'https://alexandre.symphony.com:4000/img/appstore-logo.png',
-        accent: `tempo-bg-color--green ${entityData.accent}`,
-        sayhello: {
-          icon: 'https://alexandre.symphony.com:4000/img/appstore-logo.png',
-          label: '',
+        assignTo: {
           service: name,
+          label: 'Assign',
           data: {
-            entity: entityData,
+            entity,
           },
         },
       },
     };
+
     return result;
   }
 
   action(data) {
+    window.alert(`This will alter the bug ${data.entity.issue.key}`);
     console.log(data);
   }
 }

@@ -29,7 +29,7 @@ import SpinnerComponent from './components/Spinner/Spinner';
 import SubmitInstanceComponent from './components/SubmitInstance/SubmitInstanceContainer';
 import TableInstanceComponent from './components/TableInstance/TableInstanceContainer';
 import WebHookURLComponent from './components/WebHookURLCopy/WebHookURLCopy';
-import Renderer from './js/renderer';
+import MessageEnricher from './js/messageEnricher';
 // Views
 import HomeScreen from './views/Home';
 import CreateScreen from './views/CreateView';
@@ -47,7 +47,7 @@ export const PostingLocationInfo = PostingLocationInfoComponent;
 export const Spinner = SpinnerComponent;
 export const SubmitInstance = SubmitInstanceComponent;
 export const WebHookURL = WebHookURLComponent;
-export const RendererBase = Renderer;
+export const MessageEnricherBase = MessageEnricher;
 
 export const TableInstance = TableInstanceComponent;
 export const WebHookURLCopy = WebHookURLComponent;

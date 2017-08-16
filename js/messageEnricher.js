@@ -1,8 +1,8 @@
-export default class Renderer {
+export default class MessageEnricher {
     constructor(name, messageEvents) {
         this._name = name;
         this.messageEvents = messageEvents;
-        this.implements = ['render', 'action'];
+        this.implements = ['enrich', 'action'];
     }
 
     get name() {
@@ -17,7 +17,7 @@ export default class Renderer {
         const entity = SYMPHONY.services.subscribe('entity');
 
         this.messageEvents.forEach((messageEvent) => {
-            entity.registerRenderer(messageEvent, {}, this._name);
+            entity.registerRendererEnricher(messageEvent, {}, this._name);
         });
     }
 }
