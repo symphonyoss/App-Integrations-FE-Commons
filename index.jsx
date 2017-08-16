@@ -92,13 +92,13 @@ const dependencies = [
 * register                                  register application on symphony client
 * @params       SYMPHONY                    global variable SYMPHONY returned from SYMPHONY api
 * @params       appTitle                    title that should be shown on title bar
-* @params       renderers                   array of Renderers to be registered in the application
+* @params       enrichers                   array of Enrichers to be registered in the application
 * @return       SYMPHONY.remote.hello       returns a SYMPHONY remote hello service.
 */
-export const register = (SYMPHONY, appTitle, renderers) => {
+export const register = (SYMPHONY, appTitle, enrichers) => {
   const controllerName = `${params.appId}:controller`;
 
-  let exportedDependencies = renderers ? renderers.map((renderer) => renderer.name) : [];
+  let exportedDependencies = enrichers ? enrichers.map((renderer) => renderer.name) : [];
   exportedDependencies.push(controllerName);
 
   // create our own service
@@ -137,14 +137,14 @@ export const register = (SYMPHONY, appTitle, renderers) => {
     });
   }
 
-  function initRenderers() {
-    renderers.forEach((renderer) => {
+  function initEnrichers() {
+    enrichers.forEach((renderer) => {
       renderer.init();
     });
   }
 
-  function registerRenderers() {
-    renderers.forEach((renderer) => {
+  function registerEnrichers() {
+    enrichers.forEach((renderer) => {
       renderer.register();
     });
   }
@@ -156,10 +156,10 @@ export const register = (SYMPHONY, appTitle, renderers) => {
       exportedDependencies
     )
     .then(registerApplication)
-    .then(registerRenderers);
+    .then(registerEnrichers);
   }
   return SYMPHONY.remote.hello()
-  .then(initRenderers)
+  .then(initEnrichers)
   .then(helloController);
 };
 
