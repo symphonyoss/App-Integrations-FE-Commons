@@ -2,7 +2,6 @@ const config = (function () {
   const pub = {};
   let params = {};
   let instructions;
-  let messageTemplate;
 
   pub.setParams = (values) => {
     params = Object.assign({}, values);
