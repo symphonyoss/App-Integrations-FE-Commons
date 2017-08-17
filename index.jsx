@@ -29,6 +29,7 @@ import SpinnerComponent from './components/Spinner/Spinner';
 import SubmitInstanceComponent from './components/SubmitInstance/SubmitInstanceContainer';
 import TableInstanceComponent from './components/TableInstance/TableInstanceContainer';
 import WebHookURLComponent from './components/WebHookURLCopy/WebHookURLCopy';
+import MessageEnricher from './js/messageEnricher';
 // Views
 import HomeScreen from './views/Home';
 import CreateScreen from './views/CreateView';
@@ -46,6 +47,7 @@ export const PostingLocationInfo = PostingLocationInfoComponent;
 export const Spinner = SpinnerComponent;
 export const SubmitInstance = SubmitInstanceComponent;
 export const WebHookURL = WebHookURLComponent;
+export const MessageEnricherBase = MessageEnricher;
 
 export const TableInstance = TableInstanceComponent;
 export const WebHookURLCopy = WebHookURLComponent;
@@ -83,17 +85,26 @@ const dependencies = [
   'account',
   'stream-service',
   'integration-config',
+  'entity',
+  'dialogs'
 ];
 
 /*
 * register                                  register application on symphony client
 * @params       SYMPHONY                    global variable SYMPHONY returned from SYMPHONY api
 * @params       appTitle                    title that should be shown on title bar
+* @params       enrichers                   array of Enrichers to be registered in the application
 * @return       SYMPHONY.remote.hello       returns a SYMPHONY remote hello service.
 */
-export const register = (SYMPHONY, appTitle) => {
+export const register = (SYMPHONY, appTitle, enrichers) => {
+  const controllerName = `${params.appId}:controller`;
+
+  let exportedDependencies = enrichers ? enrichers.map((enricher) => enricher.name) : [];
+  exportedDependencies.push(controllerName);
+
   // create our own service
-  const listService = SYMPHONY.services.register(`${params.appId}:controller`);
+  const listService = SYMPHONY.services.register(controllerName);
+
   function registerApplication() {
     // system services
     const uiService = SYMPHONY.services.subscribe('ui');
@@ -102,7 +113,7 @@ export const register = (SYMPHONY, appTitle) => {
     uiService.registerExtension(
       'app-settings',
       params.appId,
-      `${params.appId}:controller`,
+      controllerName,
       { label: 'Configure' }
     );
 
@@ -119,7 +130,7 @@ export const register = (SYMPHONY, appTitle) => {
         modulesService.show(
           params.appId,
           { title: appTitle },
-          `${params.appId}:controller`,
+          controllerName,
           url.join(''),
           { canFloat: true },
         );
@@ -127,14 +138,30 @@ export const register = (SYMPHONY, appTitle) => {
     });
   }
 
+  function initEnrichers() {
+    enrichers.forEach((enricher) => {
+      enricher.init();
+    });
+  }
+
+  function registerEnrichers() {
+    enrichers.forEach((enricher) => {
+      enricher.register();
+    });
+  }
+
   function helloController() {
     SYMPHONY.application.register(
       params.appId,
       dependencies,
-      [`${params.appId}:controller`]
-    ).then(registerApplication);
+      exportedDependencies
+    )
+    .then(registerApplication)
+    .then(registerEnrichers);
   }
-  return SYMPHONY.remote.hello().then(helloController);
+  return SYMPHONY.remote.hello()
+  .then(initEnrichers)
+  .then(helloController);
 };
 
 /*
@@ -189,6 +216,7 @@ export const connect = (SYMPHONY, config, Routes, elem, Instructions) => {
   }
   return SYMPHONY.remote.hello().then(helloApplication);
 };
+
 /* import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';

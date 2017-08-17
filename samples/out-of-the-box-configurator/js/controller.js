@@ -7,4 +7,5 @@ import config from './config.service';
 * @param          SYMPHONY          Global SYMPHONY object
 * @param          appTitle          The app title should appear in the title bar
 */
+
 register(SYMPHONY, config.appTitle);
