@@ -19,5 +19,7 @@ export default class MessageEnricher {
         this.messageEvents.forEach((messageEvent) => {
             entity.registerRendererEnricher(messageEvent, {}, this._name);
         });
+
+        this.dialogsService = SYMPHONY.services.subscribe('dialogs');
     }
 }

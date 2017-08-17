@@ -85,7 +85,8 @@ const dependencies = [
   'account',
   'stream-service',
   'integration-config',
-  'entity'
+  'entity',
+  'dialogs'
 ];
 
 /*
@@ -98,7 +99,7 @@ const dependencies = [
 export const register = (SYMPHONY, appTitle, enrichers) => {
   const controllerName = `${params.appId}:controller`;
 
-  let exportedDependencies = enrichers ? enrichers.map((renderer) => renderer.name) : [];
+  let exportedDependencies = enrichers ? enrichers.map((enricher) => enricher.name) : [];
   exportedDependencies.push(controllerName);
 
   // create our own service
@@ -138,14 +139,14 @@ export const register = (SYMPHONY, appTitle, enrichers) => {
   }
 
   function initEnrichers() {
-    enrichers.forEach((renderer) => {
-      renderer.init();
+    enrichers.forEach((enricher) => {
+      enricher.init();
     });
   }
 
   function registerEnrichers() {
-    enrichers.forEach((renderer) => {
-      renderer.register();
+    enrichers.forEach((enricher) => {
+      enricher.register();
     });
   }
 

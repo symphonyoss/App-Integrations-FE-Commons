@@ -1,6 +1,6 @@
 import 'babel-polyfill';
 import React from 'react';
-import { connect, connectMessageRenderer } from 'symphony-integration-commons';
+import { connect } from 'symphony-integration-commons';
 import routes from '../routes/Routes';
 import config from './config.service';
 import Instructions from '../components/SetupInstructions/template';
@@ -22,5 +22,3 @@ connect(
   elem,
   <Instructions />
 );
-
-connectMessageRenderer(<Instructions />);
