@@ -7,7 +7,6 @@ import appInstructions from './instructionsReducer';
 import instance from './instanceReducer';
 import message from './messagesReducer';
 import error from './errorReducer';
-import messageTemplate from './messageTemplateReducer';
 
 const rootReducer = combineReducers({
   appParams,
@@ -18,7 +17,6 @@ const rootReducer = combineReducers({
   instance,
   message,
   error,
-  messageTemplate,
 });
 
 export default rootReducer;

@@ -16,13 +16,6 @@ const config = (function () {
 
   pub.getInstructions = () => instructions;
 
-  pub.setMessageTemplate = (template) => {
-    messageTemplate = template;
-  };
-
-  pub.getMessageTemplate = () => messageTemplate;
-
-
   return pub;
 }());
 

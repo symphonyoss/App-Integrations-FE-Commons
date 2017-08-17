@@ -70,8 +70,6 @@ module.exports = {
     contentBase: path.resolve(__dirname, './dist'),
     port: 4000,
     inline: true,
-    host: "0.0.0.0",
-    disableHostCheck: true,
     headers: {
       "Access-Control-Allow-Origin": "*"
     }
