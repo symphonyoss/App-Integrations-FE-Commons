@@ -32,7 +32,7 @@ export const register = (SYMPHONY, config, enrichers) => {
   exportedDependencies.push(controllerName);
 
   // create our own service
-  const listService = SYMPHONY.services.register(controllerName);
+  const controllerService = SYMPHONY.services.register(controllerName);
 
   function registerApplication() {
     // system services
@@ -46,7 +46,7 @@ export const register = (SYMPHONY, config, enrichers) => {
       { label: 'Configure' }
     );
 
-    listService.implement({
+    controllerService.implement({
       trigger() {
         const url = [
           `${params.host}/${config.appContext}/app.html`,

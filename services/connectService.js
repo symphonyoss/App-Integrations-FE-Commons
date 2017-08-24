@@ -4,7 +4,6 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import factory from '../js/config.service';
 import configureStore from '../store/configureStore';
-import '../vendors/font-awesome-4.6.3/css/font-awesome.min.css';
 
 const dependencies = [
   'ui',
