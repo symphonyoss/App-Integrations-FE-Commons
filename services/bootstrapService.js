@@ -34,13 +34,13 @@ export const bootstrap = (config, enrichers) => {
       .then(authenticateApplication)
       .then(registerAuthenticatedApp)
       .fail((e) => {
-        console.log(e.stack);
+        console.error(`Fail to register application ${config.appId}`);
       });
   } else {
     SYMPHONY.remote.hello()
       .then(registerApp)
       .fail((e) => {
-        console.log(e.stack);
+        console.error(`Fail to register application ${config.appId}`);
       });
   }
 };
