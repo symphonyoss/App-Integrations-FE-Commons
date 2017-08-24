@@ -21,6 +21,7 @@ import {
 import { connect as connectService } from './services/connectService';
 import { registerApplication as registerAppService } from './services/registerApplication';
 import { registerEnrichers as registerEnrichersService } from './services/registerEnricher';
+import { bootstrap as bootstrapService } from './services/bootstrapService';
 
 // Components
 import ConfigureNewComponent from './components/ConfigureNew/ConfigureNew';
@@ -70,6 +71,7 @@ export const sendWelcomeMessage = sendWelcomeMessageService;
 export const authenticateApp = authenticateAppService;
 export const connect = connectService;
 export const registerApplication = registerAppService;
+export const bootstrap = bootstrapService;
 
 // Export Views
 export const Home = HomeScreen;

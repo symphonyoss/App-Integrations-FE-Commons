@@ -4,13 +4,14 @@ import { initEnrichers, registerEnrichers } from './registerEnricher';
 const dependencies = [
   'ui',
   'extended-user-service',
+  'extended-user-info',
   'modules',
   'applications-nav',
   'account',
   'stream-service',
   'integration-config',
   'entity',
-  'dialogs'
+  'dialogs',
 ];
 
 const params = {
@@ -19,65 +20,64 @@ const params = {
    host: `${window.location.protocol}//${window.location.hostname}:${window.location.port}`
 };
 
+function registerExtension(config) {
+  const controllerName = `${config.appId}:controller`;
+  const uiService = SYMPHONY.services.subscribe('ui');
+
+  uiService.registerExtension(
+    'app-settings',
+    config.appId,
+    controllerName,
+    { label: 'Configure' }
+  );
+}
+
+function registerModule(config) {
+  const controllerName = `${config.appId}:controller`;
+  const controllerService = SYMPHONY.services.subscribe(controllerName);
+  const modulesService = SYMPHONY.services.subscribe('modules');
+
+  controllerService.implement({
+    trigger() {
+      const url = [
+        `${params.host}/${config.appContext}/app.html`,
+        `?configurationId=${params.configurationId}`,
+        `&botUserId=${params.botUserId}`,
+      ];
+
+      // invoke the module service to show our own application in the grid
+      modulesService.show(
+        config.appId,
+        { title: config.appTitle },
+        controllerName,
+        url.join(''),
+        { canFloat: true },
+      );
+    },
+  });
+}
+
 /*
 * registerApplication                       register application on symphony client
-* @params       SYMPHONY                    global variable SYMPHONY returned from SYMPHONY api
 * @params       config                      app settings
 * @params       enrichers                   array of Enrichers to be registered in the application
 * @return       SYMPHONY.remote.hello       returns a SYMPHONY remote hello service.
 */
-export const registerApplication = (SYMPHONY, config, enrichers) => {
+export const registerApplication = (config, appData, enrichers) => {
   const controllerName = `${config.appId}:controller`;
-
-  let exportedDependencies = enrichers ? enrichers.map((enricher) => enricher.name) : [];
+  
+  let exportedDependencies = initEnrichers(enrichers);
   exportedDependencies.push(controllerName);
 
-  // create our own service
-  const controllerService = SYMPHONY.services.register(controllerName);
-
-  function registerApplication() {
+  function register() {
     registerEnrichers(enrichers);
-
-    // system services
-    const uiService = SYMPHONY.services.subscribe('ui');
-    const modulesService = SYMPHONY.services.subscribe('modules');
-
-    uiService.registerExtension(
-      'app-settings',
-      config.appId,
-      controllerName,
-      { label: 'Configure' }
-    );
-
-    controllerService.implement({
-      trigger() {
-        const url = [
-          `${params.host}/${config.appContext}/app.html`,
-          `?configurationId=${params.configurationId}`,
-          `&botUserId=${params.botUserId}`,
-        ];
-
-        // invoke the module service to show our own application in the grid
-        modulesService.show(
-          config.appId,
-          { title: config.appTitle },
-          controllerName,
-          url.join(''),
-          { canFloat: true },
-        );
-      },
-    });
+    registerExtension(config);
+    registerModule(config);
   }
 
-  function helloController(data) {
-    initEnrichers(enrichers);
-
-    SYMPHONY.application.register(
-      config.appId,
-      dependencies,
-      exportedDependencies
-    ).then(registerApplication);
-  }
-
-  return SYMPHONY.remote.hello().then(helloController);
+  return SYMPHONY.application.register(
+          appData, 
+          dependencies, 
+          exportedDependencies
+        ).then(register);
 };

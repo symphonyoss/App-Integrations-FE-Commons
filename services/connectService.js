@@ -8,6 +8,7 @@ import configureStore from '../store/configureStore';
 const dependencies = [
   'ui',
   'extended-user-service',
+  'extended-user-info',
   'modules',
   'applications-nav',
   'account',
