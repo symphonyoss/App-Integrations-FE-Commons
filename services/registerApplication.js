@@ -1,4 +1,5 @@
 import { Utils } from '../js/utils.service';
+import { initEnrichers, registerEnrichers } from './registerEnricher';
 
 const dependencies = [
   'ui',
@@ -19,13 +20,13 @@ const params = {
 };
 
 /*
-* register                                  register application on symphony client
+* registerApplication                       register application on symphony client
 * @params       SYMPHONY                    global variable SYMPHONY returned from SYMPHONY api
 * @params       config                      app settings
 * @params       enrichers                   array of Enrichers to be registered in the application
 * @return       SYMPHONY.remote.hello       returns a SYMPHONY remote hello service.
 */
-export const register = (SYMPHONY, config, enrichers) => {
+export const registerApplication = (SYMPHONY, config, enrichers) => {
   const controllerName = `${config.appId}:controller`;
 
   let exportedDependencies = enrichers ? enrichers.map((enricher) => enricher.name) : [];
@@ -35,6 +36,8 @@ export const register = (SYMPHONY, config, enrichers) => {
   const controllerService = SYMPHONY.services.register(controllerName);
 
   function registerApplication() {
+    registerEnrichers(enrichers);
+
     // system services
     const uiService = SYMPHONY.services.subscribe('ui');
     const modulesService = SYMPHONY.services.subscribe('modules');
@@ -52,7 +55,6 @@ export const register = (SYMPHONY, config, enrichers) => {
           `${params.host}/${config.appContext}/app.html`,
           `?configurationId=${params.configurationId}`,
           `&botUserId=${params.botUserId}`,
-          `&id=${config.appId}`,
         ];
 
         // invoke the module service to show our own application in the grid
@@ -67,33 +69,15 @@ export const register = (SYMPHONY, config, enrichers) => {
     });
   }
 
-  function initEnrichers() {
-    if (enrichers === undefined) {
-      enrichers = [];
-    }
+  function helloController(data) {
+    initEnrichers(enrichers);
 
-    enrichers.forEach((enricher) => {
-      enricher.init();
-    });
-  }
-
-  function registerEnrichers() {
-    enrichers.forEach((enricher) => {
-      enricher.register();
-    });
-  }
-
-  function helloController() {
     SYMPHONY.application.register(
       config.appId,
       dependencies,
       exportedDependencies
-    )
-    .then(registerApplication)
-    .then(registerEnrichers);
+    ).then(registerApplication);
   }
 
-  return SYMPHONY.remote.hello()
-  .then(initEnrichers)
-  .then(helloController);
+  return SYMPHONY.remote.hello().then(helloController);
 };
