@@ -16,7 +16,11 @@ import {
   editInstance as editInstanceService,
   removeInstance as removeInstanceService,
   sendWelcomeMessage as sendWelcomeMessageService,
+  authenticateApp as authenticateAppService,
 } from './sagas/apiCalls';
+import { connect as connectService } from './services/connectService';
+import { register as registerService } from './services/registerService';
+
 // Components
 import ConfigureNewComponent from './components/ConfigureNew/ConfigureNew';
 import InputDescriptionComponent from './components/InputDescription/InputDescription';
@@ -51,6 +55,7 @@ export const MessageEnricherBase = MessageEnricher;
 
 export const TableInstance = TableInstanceComponent;
 export const WebHookURLCopy = WebHookURLComponent;
+
 // Export Services
 export const getUserId = getUserIdService;
 export const getRooms = getRoomsService;
@@ -61,6 +66,9 @@ export const saveInstance = saveInstanceService;
 export const editInstance = editInstanceService;
 export const removeInstance = removeInstanceService;
 export const sendWelcomeMessage = sendWelcomeMessageService;
+export const authenticateApp = authenticateAppService;
+export const connect = connectService;
+export const register = registerService;
 
 // Export Views
 export const Home = HomeScreen;
@@ -68,196 +76,3 @@ export const CreateView = CreateScreen;
 export const EditView = EditScreen;
 export const InstanceCreated = InstanceCreatedScreen;
 export const RemoveView = RemoveViewScreen;
-
-const params = {
-  appId: Utils.getParameterByName('id'),
-  configurationId: Utils.getParameterByName('configurationId'),
-  botUserId: Utils.getParameterByName('botUserId'),
-  context: Utils.getParameterByName('context') ? `/${Utils.getParameterByName('context')}` : '',
-  host: `${window.location.protocol}//${window.location.hostname}:${window.location.port}`,
-};
-
-const dependencies = [
-  'ui',
-  'extended-user-service',
-  'modules',
-  'applications-nav',
-  'account',
-  'stream-service',
-  'integration-config',
-  'entity',
-  'dialogs'
-];
-
-/*
-* register                                  register application on symphony client
-* @params       SYMPHONY                    global variable SYMPHONY returned from SYMPHONY api
-* @params       appTitle                    title that should be shown on title bar
-* @params       enrichers                   array of Enrichers to be registered in the application
-* @return       SYMPHONY.remote.hello       returns a SYMPHONY remote hello service.
-*/
-export const register = (SYMPHONY, appTitle, enrichers) => {
-  const controllerName = `${params.appId}:controller`;
-
-  let exportedDependencies = enrichers ? enrichers.map((enricher) => enricher.name) : [];
-  exportedDependencies.push(controllerName);
-
-  // create our own service
-  const listService = SYMPHONY.services.register(controllerName);
-
-  function registerApplication() {
-    // system services
-    const uiService = SYMPHONY.services.subscribe('ui');
-    const modulesService = SYMPHONY.services.subscribe('modules');
-
-    uiService.registerExtension(
-      'app-settings',
-      params.appId,
-      controllerName,
-      { label: 'Configure' }
-    );
-
-    listService.implement({
-      trigger() {
-        const url = [
-          `${params.host + params.context}/app.html`,
-          `?configurationId=${params.configurationId}`,
-          `&botUserId=${params.botUserId}`,
-          `&id=${params.appId}`,
-        ];
-
-        // invoke the module service to show our own application in the grid
-        modulesService.show(
-          params.appId,
-          { title: appTitle },
-          controllerName,
-          url.join(''),
-          { canFloat: true },
-        );
-      },
-    });
-  }
-
-  function initEnrichers() {
-    enrichers.forEach((enricher) => {
-      enricher.init();
-    });
-  }
-
-  function registerEnrichers() {
-    enrichers.forEach((enricher) => {
-      enricher.register();
-    });
-  }
-
-  function helloController() {
-    SYMPHONY.application.register(
-      params.appId,
-      dependencies,
-      exportedDependencies
-    )
-    .then(registerApplication)
-    .then(registerEnrichers);
-  }
-  return SYMPHONY.remote.hello()
-  .then(initEnrichers)
-  .then(helloController);
-};
-
-/*
-* connect         connects the application on symphony client
-* @param          SYMPHONY          Global SYMPHONY object (Required)
-* @param          config            custom parameters for each integration. (Required)
-* @param          Routes            default, or custom, routes file (Required)
-* @param          elem              HTML DOM element where to render the configurator (Required)
-* @param          Instructions      react dom for custom setup instructions (Optional)
-*/
-export const connect = (SYMPHONY, config, Routes, elem, Instructions) => {
-  function loadApplication() {
-    factory.setParams(config);
-    factory.setInstructions(Instructions);
-    const store = configureStore();
-    render(
-      <Provider store={store}>
-        <Routes />
-      </Provider>,
-      elem
-    );
-  }
-
-  let themeColor,
-    themeSize;
-
-  function connectApplication() {
-    const uiService = SYMPHONY.services.subscribe('ui');
-    loadApplication();
-    // UI: Listen for theme change events
-    uiService.listen('themeChangeV2', () => {
-      SYMPHONY.remote.hello().then((resp) => {
-        themeColor = resp.themeV2.name;
-        themeSize = resp.themeV2.size;
-        document.body.className = `symphony-external-app ${themeColor} ${themeSize}`;
-      });
-    });
-  }
-
-  function helloApplication(data) {
-    themeColor = data.themeV2.name;
-    themeSize = data.themeV2.size;
-
-    // You must add the symphony-external-app class to the body element
-    document.body.className = `symphony-external-app ${themeColor} ${themeSize}`;
-
-    SYMPHONY.application.connect(
-      params.appId,
-      dependencies,
-      [`${params.appId}:app`]
-    ).then(connectApplication);
-  }
-  return SYMPHONY.remote.hello().then(helloApplication);
-};
-
-/* import React from 'react';
-import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-// import Routes from './routes/Routes';
-import configureStore from './store/configureStore';
-import config from './js/config.service';
-// Components
-import MessageBoxComponent from './components/MessageBox/MessageBox';
-import IntegrationHeaderComponent from './components/IntegrationHeader/IntegrationHeader';
-// import SetupInstructionsComponent from './components/SetupInstructions/SetupInstructions';
-import ConfigureNewComponent from './components/ConfigureNew/ConfigureNew';
-import TableInstanceComponent from './components/TableInstance/TableInstanceContainer';
-// Views
-import HomeScreen from './views/Home';
-import CreateScreen from './views/CreateView';
-import EditScreen from './views/EditView';
-import InstanceCreatedScreen from './views/InstanceCreated';
-import RemoveViewScreen from './views/RemoveView';
-
-// Export Views
-export const Home = HomeScreen;
-export const CreateView = CreateScreen;
-export const EditView = EditScreen;
-export const InstanceCreated = InstanceCreatedScreen;
-export const RemoveView = RemoveViewScreen;
-
-// Export Components
-export const MessageBox = MessageBoxComponent;
-export const IntegrationHeader = IntegrationHeaderComponent;
-// export const SetupInstructions = SetupInstructionsComponent;
-export const ConfigureNew = ConfigureNewComponent;
-export const TableInstance = TableInstanceComponent;
-
-export default (params, Routes, Instructions, elem) => {
-  config.setParams(params);
-  config.setInstructions(Instructions);
-  const store = configureStore();
-  render(
-    <Provider store={store}>
-      <Routes />
-    </Provider>,
-    elem
-  );
-};*/
