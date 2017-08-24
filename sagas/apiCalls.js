@@ -9,6 +9,7 @@ const hostPort = window.location.port === 443 ? '' : `:${window.location.port}`;
 const baseUrl = `${window.location.protocol}//${window.location.hostname}${hostPort}/integration`;
 const baseWebHookURL = `${baseUrl}/v1/whi/${appName}/${configurationId}`;
 const baseAuthenticationUrl = `${baseUrl}/v1/application/${configurationId}/jwt`;
+const baseAuthorizationUrl = `${baseUrl}/v1/application/${configurationId}/authorization`;
 
 export const getAppName = () => appName;
 
@@ -134,4 +135,12 @@ export const authenticateApp = (podId) => {
                       podUrl: podId
                     }
                   });
+};
+
+export const authorizeUser = (integrationUrl, jwt) => {
+  const url = `${baseAuthorizationUrl}/userSession`;
+  return axios.get(url, {
+    params: { integrationUrl: integrationUrl },
+    headers: {'Authorization': "Bearer " + jwt}
+  });
 };
