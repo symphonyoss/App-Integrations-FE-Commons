@@ -3,13 +3,8 @@ import { initEnrichers, registerEnrichers } from './registerEnricher';
 
 const dependencies = [
   'ui',
-  'extended-user-service',
   'extended-user-info',
   'modules',
-  'applications-nav',
-  'account',
-  'stream-service',
-  'integration-config',
   'entity',
   'dialogs',
 ];
@@ -20,7 +15,7 @@ const params = {
    host: `${window.location.protocol}//${window.location.hostname}:${window.location.port}`
 };
 
-function registerExtension(config) {
+const registerExtension = (config) => {
   const controllerName = `${config.appId}:controller`;
   const uiService = SYMPHONY.services.subscribe('ui');
 
@@ -32,7 +27,7 @@ function registerExtension(config) {
   );
 }
 
-function registerModule(config) {
+const registerModule = (config) => {
   const controllerName = `${config.appId}:controller`;
   const controllerService = SYMPHONY.services.subscribe(controllerName);
   const modulesService = SYMPHONY.services.subscribe('modules');
@@ -69,7 +64,7 @@ export const registerApplication = (config, appData, enrichers) => {
   let exportedDependencies = initEnrichers(enrichers);
   exportedDependencies.push(controllerName);
 
-  function register() {
+  const register = () => {
     registerEnrichers(enrichers);
     registerExtension(config);
     registerModule(config);
