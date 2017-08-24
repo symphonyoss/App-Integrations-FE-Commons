@@ -19,7 +19,8 @@ import {
   authenticateApp as authenticateAppService,
 } from './sagas/apiCalls';
 import { connect as connectService } from './services/connectService';
-import { register as registerService } from './services/registerService';
+import { registerApplication as registerAppService } from './services/registerApplication';
+import { registerEnrichers as registerEnrichersService } from './services/registerEnricher';
 
 // Components
 import ConfigureNewComponent from './components/ConfigureNew/ConfigureNew';
@@ -68,7 +69,7 @@ export const removeInstance = removeInstanceService;
 export const sendWelcomeMessage = sendWelcomeMessageService;
 export const authenticateApp = authenticateAppService;
 export const connect = connectService;
-export const register = registerService;
+export const registerApplication = registerAppService;
 
 // Export Views
 export const Home = HomeScreen;
