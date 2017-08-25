@@ -135,3 +135,22 @@ export const authenticateApp = (podId) => {
                     }
                   });
 };
+
+export const validateTokens = (applicationToken, symphonyToken) => {
+  const url = `${baseAuthenticationUrl}/tokens/validate`;
+  return axios.get(url, {
+                    params: {
+                      applicationToken,
+                      symphonyToken
+                    }
+                  });
+};
+
+export const validateJwt = (jwt) => {
+  const url = `${baseAuthenticationUrl}/validate`;
+  return axios.get(url, {
+                    params: {
+                      jwt
+                    }
+                  });
+};

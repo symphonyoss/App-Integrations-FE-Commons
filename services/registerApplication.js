@@ -64,10 +64,12 @@ export const registerApplication = (config, appData, enrichers) => {
   let exportedDependencies = initEnrichers(enrichers);
   exportedDependencies.push(controllerName);
 
-  const register = () => {
+  const register = (data) => {
     registerEnrichers(enrichers);
     registerExtension(config);
     registerModule(config);
+
+    return data;
   }
 
   return SYMPHONY.application.register(
