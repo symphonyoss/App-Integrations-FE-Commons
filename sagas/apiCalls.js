@@ -137,7 +137,7 @@ export const authenticateApp = (podId) => {
                   });
 };
 
-export const authorizeUser = (integrationUrl, jwt) => {
+export const getUserSession = (integrationUrl, jwt) => {
   const url = `${baseAuthorizationUrl}/userSession`;
   return axios.get(url, {
     params: { integrationUrl: integrationUrl },
