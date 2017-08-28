@@ -96,25 +96,6 @@ export class SubmitInstance extends Component {
       ) {
         return;
       }
-
-      let _postingRooms = this.props.postingRooms;
-      if (_postingRooms.length > 0) {
-        //Remove duplicates
-        _postingRooms.sort();
-        alert(_postingRooms.length);
-        /*
-        for(let i = 0, n = _postingRooms.length; i <= n -1; i++) {
-          if(_postingRooms[i].threadId == _postingRooms[i+1].threadId) {
-            _postingRooms.splice(i,1);
-            n--;
-            i--;
-          }
-        }*/
-      }
-
-      this.setState({
-        postingRooms: _postingRooms
-      })
     }
 
     this.dispatchActions();
