@@ -86,6 +86,17 @@ class TableInstance extends Component {
             </thead>
             <tbody>
               {this.props.instanceList.map((item, index) => {
+                //Validate posting location Rooms
+                let _postingLocationRooms = item.postingLocationRooms;
+                _postingLocationRooms.sort();
+                for(let i = 0, n = _postingLocationRooms.length; i < n-1; i++) {
+                  if(_postingLocationRooms[i].threadId === _postingLocationRooms[i+1].threadId) {
+                    _postingLocationRooms.splice(i,1);
+                    i--;
+                    n--;
+                  }
+                }
+
                 const _instance = {
                   name: item.name,
                   appName: this.props.appName,
@@ -93,7 +104,7 @@ class TableInstance extends Component {
                   streamType: item.streamType,
                   instanceId: item.instanceId,
                   baseWebHookURL: this.props.baseWebHookURL,
-                  postingLocationRooms: item.postingLocationRooms,
+                  postingLocationRooms: _postingLocationRooms,
                   lastPosted: item.lastPosted,
                 };
                 return (

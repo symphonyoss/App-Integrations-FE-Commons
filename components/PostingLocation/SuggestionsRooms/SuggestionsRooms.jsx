@@ -33,6 +33,7 @@ export class SuggestionsRooms extends Component {
 
   componentWillMount() {
     this.setupSuggestionsList();
+    this.removeDuplicateFilter();
   }
 
   componentDidMount() {
@@ -43,6 +44,24 @@ export class SuggestionsRooms extends Component {
     if (nextProps.userRooms !== this.props.userRooms) {
       this.setState({
         suggestionsList: nextProps.userRooms.slice(),
+      });
+    }
+  }
+
+  removeDuplicateFilter() {
+    let _filters = this.props.filters;
+
+    if(_filters.length > 0) {
+      _filters.sort();
+      for(let i = 0, n = _filters.length; i < n-1; i++) {
+        if(_filters[i].threadId == _filters[i+1].threadId) {
+          _filters.splice(i,1);
+          i--;
+          n--;
+        }
+      }
+      this.setState({
+        filters: _filters,
       });
     }
   }
@@ -108,6 +127,18 @@ export class SuggestionsRooms extends Component {
     );
     if (!this.state.listening) {
       this.addInputListener();
+    }
+    //Remove rooms already filtered from suggestions
+    let currentFilters = this.state.filters;
+    for(let i = 0, n = suggestionsList.length; i < n; i++) {
+      for(let k = 0, l = currentFilters.length; k < l; k++) {
+        if(suggestionsList[i].threadId == currentFilters[k].threadId)
+        {
+          suggestionsList.splice(i,1);
+          i--;
+          n--;
+        }
+      }
     }
     this.setState({
       filteredRooms: suggestionsList,
@@ -207,11 +238,10 @@ export class SuggestionsRooms extends Component {
         postingLocationRoom = suggestions.splice(idx, 1)[0];
       }
     });
-
     this.setState({
       filteredRooms: [],
       focused: -1,
-      filters: this.state.filters.concat([filter]),
+      filters: this.state.filters.concat(filter),
       suggestionsList: suggestions.slice(),
       filled: true,
       clear: false,
