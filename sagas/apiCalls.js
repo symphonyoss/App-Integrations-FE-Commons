@@ -137,6 +137,25 @@ export const authenticateApp = (podId) => {
                   });
 };
 
+export const validateTokens = (applicationToken, symphonyToken) => {
+  const url = `${baseAuthenticationUrl}/tokens/validate`;
+  return axios.get(url, {
+                    params: {
+                      applicationToken,
+                      symphonyToken
+                    }
+                  });
+};
+
+export const validateJwt = (jwt) => {
+  const url = `${baseAuthenticationUrl}/validate`;
+  return axios.get(url, {
+                    params: {
+                      jwt
+                    }
+                  });
+};
+
 export const getUserSession = (integrationUrl, jwt) => {
   const url = `${baseAuthorizationUrl}/userSession`;
   return axios.get(url, {
