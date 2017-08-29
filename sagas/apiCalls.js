@@ -7,6 +7,7 @@ const botUserId = Utils.getParameterByName('botUserId');
 const appName = Utils.getParameterByName('id');
 const hostPort = window.location.port === 443 ? '' : `:${window.location.port}`;
 const baseUrl = `${window.location.protocol}//${window.location.hostname}${hostPort}/integration`;
+
 const baseWebHookURL = `${baseUrl}/v1/whi/${appName}/${configurationId}`;
 const baseAuthenticationUrl = `${baseUrl}/v1/application/${configurationId}/jwt`;
 const baseAuthorizationUrl = `${baseUrl}/v1/application/${configurationId}/authorization`;

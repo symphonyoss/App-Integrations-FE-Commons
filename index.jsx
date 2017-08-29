@@ -18,8 +18,10 @@ import {
   sendWelcomeMessage as sendWelcomeMessageService,
   authenticateApp as authenticateAppService,
 } from './sagas/apiCalls';
+// Services
 import { connect as connectService } from './services/connectService';
 import { register as registerService } from './services/registerService';
+import { authorizeUser as authService } from './services/authService';
 
 // Components
 import ConfigureNewComponent from './components/ConfigureNew/ConfigureNew';
@@ -69,6 +71,7 @@ export const sendWelcomeMessage = sendWelcomeMessageService;
 export const authenticateApp = authenticateAppService;
 export const connect = connectService;
 export const register = registerService;
+export const authorizeUser = authService;
 
 // Export Views
 export const Home = HomeScreen;
