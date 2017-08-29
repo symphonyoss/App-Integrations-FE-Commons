@@ -18,7 +18,12 @@ import {
   sendWelcomeMessage as sendWelcomeMessageService,
   authenticateApp as authenticateAppService,
 } from './sagas/apiCalls';
+// Services
 import { connect as connectService } from './services/connectService';
+<<<<<<< HEAD
+import { register as registerService } from './services/registerService';
+import { authorizeUser as authService } from './services/authService';
+=======
 import { registerApplication as registerAppService } from './services/registerApplication';
 import { registerEnrichers as registerEnrichersService } from './services/registerEnricher';
 import { 
@@ -26,7 +31,7 @@ import {
   initUnauthenticatedApp as initUnauthenticatedAppService,
 } from './services/bootstrapService';
 import { getUserJWT as getUserJWTService} from './services/authService';
-import { authorizeUser as authService } from './services/authService';
+>>>>>>> bffe53896992a9a4f8a270cd40f63e3d70f2c495
 
 // Components
 import ConfigureNewComponent from './components/ConfigureNew/ConfigureNew';
@@ -75,11 +80,15 @@ export const removeInstance = removeInstanceService;
 export const sendWelcomeMessage = sendWelcomeMessageService;
 export const authenticateApp = authenticateAppService;
 export const connect = connectService;
+<<<<<<< HEAD
+export const register = registerService;
+export const authorizeUser = authService;
+=======
 export const registerApplication = registerAppService;
 export const initApp = initAppService;
 export const initUnauthenticatedApp = initUnauthenticatedAppService;
 export const getUserJWT = getUserJWTService;
-export const authorizeUser = authService;
+>>>>>>> bffe53896992a9a4f8a270cd40f63e3d70f2c495
 
 // Export Views
 export const Home = HomeScreen;

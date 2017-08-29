@@ -8,13 +8,8 @@ import configureStore from '../store/configureStore';
 const dependencies = [
   'ui',
   'extended-user-service',
-  'modules',
-  'applications-nav',
-  'account',
   'stream-service',
   'integration-config',
-  'entity',
-  'dialogs'
 ];
 
 /*
@@ -26,7 +21,7 @@ const dependencies = [
 * @param          Instructions      react dom for custom setup instructions (Optional)
 */
 export const connect = (SYMPHONY, config, Routes, elem, Instructions) => {
-  function loadApplication() {
+  const loadApplication = () => {
     factory.setParams(config);
     factory.setInstructions(Instructions);
 
@@ -42,7 +37,7 @@ export const connect = (SYMPHONY, config, Routes, elem, Instructions) => {
 
   let themeColor, themeSize;
 
-  function connectApplication() {
+  const connectApplication = () => {
     const uiService = SYMPHONY.services.subscribe('ui');
     loadApplication();
     // UI: Listen for theme change events
@@ -55,7 +50,7 @@ export const connect = (SYMPHONY, config, Routes, elem, Instructions) => {
     });
   }
 
-  function helloApplication(data) {
+  const helloApplication = (data) => {
     themeColor = data.themeV2.name;
     themeSize = data.themeV2.size;
 
@@ -68,5 +63,6 @@ export const connect = (SYMPHONY, config, Routes, elem, Instructions) => {
       [`${config.appId}:app`]
     ).then(connectApplication);
   }
+
   return SYMPHONY.remote.hello().then(helloApplication);
 };
