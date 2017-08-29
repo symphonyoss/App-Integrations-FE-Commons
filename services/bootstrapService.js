@@ -4,6 +4,7 @@ import {
   validateTokens,
   validateJwt
 } from '../sagas/apiCalls';
+import { cacheUserInfo } from './authService';
 
 /*
 * initApp                                   initializes the communication with the Symphony Client
@@ -47,7 +48,8 @@ export const initApp = (config, enrichers) => {
 
   const cacheJwt = (response) => {
     userInfo.userId = response.data;
-    // TODO cache JWT
+
+    cacheUserInfo(userInfo);
   }
 
   SYMPHONY.remote.hello()
