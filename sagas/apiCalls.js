@@ -129,28 +129,28 @@ export const sendWelcomeMessage = (instanceId, streams) => {
 
 export const authenticateApp = (podId) => {
   const url = `${baseAuthenticationUrl}/authenticate`;
-  return axios.get(url, {
-                    params: {
-                      podUrl: podId
-                    }
-                  });
+  const payload = {
+    podId
+  }
+
+  return axios.post(url, payload);
 };
 
 export const validateTokens = (applicationToken, symphonyToken) => {
   const url = `${baseAuthenticationUrl}/tokens/validate`;
-  return axios.get(url, {
-                    params: {
-                      applicationToken,
-                      symphonyToken
-                    }
-                  });
+  const payload = {
+    applicationToken,
+    symphonyToken
+  };
+
+  return axios.post(url, payload);
 };
 
 export const validateJwt = (jwt) => {
   const url = `${baseAuthenticationUrl}/validate`;
-  return axios.get(url, {
-                    params: {
-                      jwt
-                    }
-                  });
+  const payload = {
+    jwt
+  };
+
+  return axios.post(url, payload);
 };
