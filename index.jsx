@@ -26,6 +26,7 @@ import {
   initUnauthenticatedApp as initUnauthenticatedAppService,
 } from './services/bootstrapService';
 import { getUserJWT as getUserJWTService} from './services/authService';
+import { authorizeUser as authService } from './services/authService';
 
 // Components
 import ConfigureNewComponent from './components/ConfigureNew/ConfigureNew';
@@ -78,6 +79,7 @@ export const registerApplication = registerAppService;
 export const initApp = initAppService;
 export const initUnauthenticatedApp = initUnauthenticatedAppService;
 export const getUserJWT = getUserJWTService;
+export const authorizeUser = authService;
 
 // Export Views
 export const Home = HomeScreen;

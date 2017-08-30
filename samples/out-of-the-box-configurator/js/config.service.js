@@ -5,4 +5,5 @@ export default ({
   appIMShortHand: 'My App',
   appToggleSetupInstructions: true,
   appLogo: 'jira_logo.png',
+  appId: 'sampleMyApp',
 });
