@@ -25,7 +25,7 @@ export const authorizeUser = (integrationUrl) => {
   getUserJWT()
   .then((jwt) => {
     getUserSession(integrationUrl, jwt)
-    .then((userSession) => {
+    .then(() => {
       return Promise.resolve(true);
     })
     .catch((err) => {
