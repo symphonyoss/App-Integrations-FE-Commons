@@ -50,20 +50,15 @@ export class SuggestionsRooms extends Component {
 
   removeDuplicateFilter() {
     let _filters = this.props.filters;
+    let seen = {};
 
-    if(_filters.length > 0) {
-      _filters.sort();
-      for(let i = 0, n = _filters.length; i < n-1; i++) {
-        if(_filters[i].threadId == _filters[i+1].threadId) {
-          _filters.splice(i,1);
-          i--;
-          n--;
-        }
-      }
-      this.setState({
-        filters: _filters,
-      });
-    }
+    let uniqueArray = _filters.filter(item => {
+      return seen.hasOwnProperty(item.threadId) ? false : (seen[item.threadId] = true);
+    });
+
+    this.setState({
+      filters: uniqueArray,
+    });
   }
 
   setupSuggestionsList() {
@@ -130,18 +125,18 @@ export class SuggestionsRooms extends Component {
     }
     //Remove rooms already filtered from suggestions
     let currentFilters = this.state.filters;
-    for(let i = 0, n = suggestionsList.length; i < n; i++) {
-      for(let k = 0, l = currentFilters.length; k < l; k++) {
-        if(suggestionsList[i].threadId == currentFilters[k].threadId)
-        {
-          suggestionsList.splice(i,1);
-          i--;
-          n--;
-        }
-      }
+    let currentFiltersHashTable = {}
+
+    for(let i = 0; i < currentFilters.length; i ++) {
+      currentFiltersHashTable[currentFilters[i].threadId] = currentFilters[i];
     }
+
+    let uniqueArray = suggestionsList.filter(item => {
+      return !(currentFiltersHashTable.hasOwnProperty(item.threadId));
+    })
+
     this.setState({
-      filteredRooms: suggestionsList,
+      filteredRooms: uniqueArray,
       clear: true,
     });
   }
