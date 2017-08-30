@@ -13,6 +13,8 @@ export const openAuthorizationPopupWindow = (url) => {
   }, 25);
 };
 
+let userInfoCache = {};
+
 export const cacheUserInfo = (userInfo) => {
   userInfoCache = Object.assign({}, userInfo);
 }
