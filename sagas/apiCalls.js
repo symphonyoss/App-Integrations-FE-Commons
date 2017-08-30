@@ -2,11 +2,13 @@ import axios from 'axios';
 import { Utils } from '../js/utils.service';
 import config from '../js/config.service';
 
-const configurationId = Utils.getParameterByName('configurationId');
+//const configurationId = Utils.getParameterByName('configurationId');
+const configurationId = '595e81f6e4b0ed49e80ad0af';
 const botUserId = Utils.getParameterByName('botUserId');
 const appName = Utils.getParameterByName('id');
 const hostPort = window.location.port === 443 ? '' : `:${window.location.port}`;
-const baseUrl = `${window.location.protocol}//${window.location.hostname}${hostPort}/integration`;
+//const baseUrl = `${window.location.protocol}//${window.location.hostname}${hostPort}/integration`;
+const baseUrl = 'https://localhost.symphony.com:8186/integration';
 
 const baseWebHookURL = `${baseUrl}/v1/whi/${appName}/${configurationId}`;
 const baseAuthenticationUrl = `${baseUrl}/v1/application/${configurationId}/jwt`;
