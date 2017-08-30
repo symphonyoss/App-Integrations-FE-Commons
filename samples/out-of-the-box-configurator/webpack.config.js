@@ -72,6 +72,6 @@ module.exports = {
     inline: true,
     headers: {
       "Access-Control-Allow-Origin": "*"
-    },
+    }
   }
 };
