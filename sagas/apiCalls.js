@@ -153,5 +153,4 @@ export const validateJwt = (jwt) => {
   };
 
   return axios.post(url, payload);
-
 };
