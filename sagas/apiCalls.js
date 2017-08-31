@@ -5,7 +5,7 @@ import config from '../js/config.service';
 const configurationId = Utils.getParameterByName('configurationId');
 const botUserId = Utils.getParameterByName('botUserId');
 const appName = Utils.getParameterByName('id');
-const hostPort = window.location.port === 443 ? '' : `:${window.location.port}`;
+const hostPort = window.location.port == 443 ? `` : `:${window.location.port}`;
 const baseUrl = `${window.location.protocol}//${window.location.hostname}${hostPort}/integration`;
 
 const baseWebHookURL = `${baseUrl}/v1/whi/${appName}/${configurationId}`;
