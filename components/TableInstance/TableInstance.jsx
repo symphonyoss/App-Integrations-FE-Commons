@@ -99,7 +99,7 @@ class TableInstance extends Component {
                   streamType: item.streamType,
                   instanceId: item.instanceId,
                   baseWebHookURL: this.props.baseWebHookURL,
-                  postingLocationRooms: item.postingLocationRooms,
+                  postingLocationRooms: uniqueArray,
                   lastPosted: item.lastPosted,
                 };
                 return (

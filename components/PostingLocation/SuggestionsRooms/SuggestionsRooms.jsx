@@ -33,6 +33,7 @@ export class SuggestionsRooms extends Component {
 
   componentWillMount() {
     this.setupSuggestionsList();
+    this.removeDuplicateFilter();
   }
 
   componentDidMount() {
@@ -45,6 +46,19 @@ export class SuggestionsRooms extends Component {
         suggestionsList: nextProps.userRooms.slice(),
       });
     }
+  }
+
+  removeDuplicateFilter() {
+    let _filters = this.props.filters;
+    let seen = {};
+
+    let uniqueArray = _filters.filter(item => {
+      return seen.hasOwnProperty(item.threadId) ? false : (seen[item.threadId] = true);
+    });
+
+    this.setState({
+      filters: uniqueArray,
+    });
   }
 
   setupSuggestionsList() {
@@ -120,7 +134,7 @@ export class SuggestionsRooms extends Component {
     });
 
     this.setState({
-      filteredRooms: suggestionsList,
+      filteredRooms: uniqueArray,
       clear: true,
     });
   }
@@ -217,11 +231,10 @@ export class SuggestionsRooms extends Component {
         postingLocationRoom = suggestions.splice(idx, 1)[0];
       }
     });
-
     this.setState({
       filteredRooms: [],
       focused: -1,
-      filters: this.state.filters.concat([filter]),
+      filters: this.state.filters.concat(filter),
       suggestionsList: suggestions.slice(),
       filled: true,
       clear: false,
