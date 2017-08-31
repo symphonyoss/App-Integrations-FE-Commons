@@ -38,6 +38,7 @@ const registerModule = (config) => {
         `${params.host}/${config.appContext}/app.html`,
         `?configurationId=${params.configurationId}`,
         `&botUserId=${params.botUserId}`,
+        `&id=${config.appId}`,
       ];
 
       // invoke the module service to show our own application in the grid
