@@ -87,14 +87,10 @@ class TableInstance extends Component {
             <tbody>
               {this.props.instanceList.map((item, index) => {
                 //Validate posting location Rooms
-                let _postingLocationRooms = {};
-                for(let i = 0; i < item.postingLocationRooms.length; i++) {
-                  _postingLocationRooms[item.postingLocationRooms[i].threadId] = item.postingLocationRooms[i];
-                }
-
+                let seen = {};
                 let uniqueArray = item.postingLocationRooms.filter(item => {
-                  return !(_postingLocationRooms.hasOwnProperty(item.threadId));
-                })
+                  return seen.hasOwnProperty(item.threadId) ? false : (seen[item.threadId] = true);
+                });
 
                 const _instance = {
                   name: item.name,

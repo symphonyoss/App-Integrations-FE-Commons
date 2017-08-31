@@ -124,16 +124,14 @@ export class SuggestionsRooms extends Component {
       this.addInputListener();
     }
     //Remove rooms already filtered from suggestions
-    let currentFilters = this.state.filters;
-    let currentFiltersHashTable = {}
+    const filterHashMap = this.state.filters.reduce(function(map,obj) {
+      map[obj.threadId] = obj;
+      return map
+    }, {});
 
-    for(let i = 0; i < currentFilters.length; i ++) {
-      currentFiltersHashTable[currentFilters[i].threadId] = currentFilters[i];
-    }
-
-    let uniqueArray = suggestionsList.filter(item => {
-      return !(currentFiltersHashTable.hasOwnProperty(item.threadId));
-    })
+    const uniqueArray = suggestionsList.filter(function(item) {
+      return !(filterHashMap[item.threadId] != null)
+    });
 
     this.setState({
       filteredRooms: uniqueArray,
@@ -247,24 +245,20 @@ export class SuggestionsRooms extends Component {
   }
 
   removeFilter(_id) {
-    const suggestions = this.state.suggestionsList.slice();
     const _filters = this.state.filters.slice();
     let required = true;
     let postingLocationRoom;
     _filters.some((item, idx) => {
       if (item.threadId === _id) {
-        suggestions.push(item);
         postingLocationRoom = item;
         _filters.splice(idx, 1);
       }
     });
 
-    this.sort(suggestions, 'name');
     this.input.value = '';
     this.input.focus();
     required = _filters.length > 0;
     this.setState({
-      suggestionsList: suggestions.slice(),
       filters: _filters.slice(),
       filled: required,
     });
