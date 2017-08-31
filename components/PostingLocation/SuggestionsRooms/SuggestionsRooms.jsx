@@ -33,6 +33,7 @@ export class SuggestionsRooms extends Component {
 
   componentWillMount() {
     this.setupSuggestionsList();
+    this.removeDuplicateFilter();
   }
 
   componentDidMount() {
@@ -45,6 +46,19 @@ export class SuggestionsRooms extends Component {
         suggestionsList: nextProps.userRooms.slice(),
       });
     }
+  }
+
+  removeDuplicateFilter() {
+    let _filters = this.props.filters;
+    let seen = {};
+
+    let uniqueArray = _filters.filter(item => {
+      return seen.hasOwnProperty(item.threadId) ? false : (seen[item.threadId] = true);
+    });
+
+    this.setState({
+      filters: uniqueArray,
+    });
   }
 
   setupSuggestionsList() {
@@ -109,8 +123,18 @@ export class SuggestionsRooms extends Component {
     if (!this.state.listening) {
       this.addInputListener();
     }
+    // Remove rooms already filtered from suggestions
+    const filterHashMap = this.state.filters.reduce(function(map,obj) {
+      map[obj.threadId] = obj;
+      return map
+    }, {});
+
+    const uniqueArray = suggestionsList.filter(function(item) {
+      return !(filterHashMap[item.threadId] != null)
+    });
+
     this.setState({
-      filteredRooms: suggestionsList,
+      filteredRooms: uniqueArray,
       clear: true,
     });
   }
@@ -207,11 +231,10 @@ export class SuggestionsRooms extends Component {
         postingLocationRoom = suggestions.splice(idx, 1)[0];
       }
     });
-
     this.setState({
       filteredRooms: [],
       focused: -1,
-      filters: this.state.filters.concat([filter]),
+      filters: this.state.filters.concat(filter),
       suggestionsList: suggestions.slice(),
       filled: true,
       clear: false,
@@ -222,24 +245,20 @@ export class SuggestionsRooms extends Component {
   }
 
   removeFilter(_id) {
-    const suggestions = this.state.suggestionsList.slice();
     const _filters = this.state.filters.slice();
     let required = true;
     let postingLocationRoom;
     _filters.some((item, idx) => {
       if (item.threadId === _id) {
-        suggestions.push(item);
         postingLocationRoom = item;
         _filters.splice(idx, 1);
       }
     });
 
-    this.sort(suggestions, 'name');
     this.input.value = '';
     this.input.focus();
     required = _filters.length > 0;
     this.setState({
-      suggestionsList: suggestions.slice(),
       filters: _filters.slice(),
       filled: required,
     });

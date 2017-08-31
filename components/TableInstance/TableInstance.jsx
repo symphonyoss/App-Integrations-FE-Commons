@@ -86,6 +86,12 @@ class TableInstance extends Component {
             </thead>
             <tbody>
               {this.props.instanceList.map((item, index) => {
+                // Validate posting location Rooms
+                let seen = {};
+                let uniqueArray = item.postingLocationRooms.filter(item => {
+                  return seen.hasOwnProperty(item.threadId) ? false : (seen[item.threadId] = true);
+                });
+
                 const _instance = {
                   name: item.name,
                   appName: this.props.appName,
@@ -93,7 +99,7 @@ class TableInstance extends Component {
                   streamType: item.streamType,
                   instanceId: item.instanceId,
                   baseWebHookURL: this.props.baseWebHookURL,
-                  postingLocationRooms: item.postingLocationRooms,
+                  postingLocationRooms: uniqueArray,
                   lastPosted: item.lastPosted,
                 };
                 return (
