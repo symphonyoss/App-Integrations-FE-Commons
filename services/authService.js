@@ -22,23 +22,35 @@ export const getUserJWT = () => {
 }
 
 export const authorizeUser = (integrationUrl) => {
-  getUserJWT()
-  .then((jwt) => {
-    getUserSession(integrationUrl, jwt)
-    .then(() => {
-      return Promise.resolve(true);
+  let token;
+
+  return getUserJWT()
+    .then((data) => {
+      token = data;
+      return getUserSession(integrationUrl, token);
     })
-    .catch((err) => {
-      if (err.response.status == 401) {
-        const userSession = err.response;
-        if (userSession.data.properties != null && userSession.data.properties.authorizationUrl != null) {
-          const authorizationUrl = userSession.data.properties.authorizationUrl;
-          openAuthorizationPopupWindow(authorizationUrl);
-          return Promise.resolve(false);
+    .then(() => {
+      return Promise.resolve({
+        success: true,
+        jwt: token,
+      });
+    })
+    .catch((error) => {
+      const response = error.response || {};
+      if (response.status === 401) {
+        const userSession = response.data || {};
+        const properties = userSession.properties || {};
+        if (properties.authorizationUrl != undefined) {
+          openAuthorizationPopupWindow(properties.authorizationUrl);
+
+          return Promise.resolve({
+            success: false,
+          });
         }
-      } else {
-        throw err;
-      }      
+
+        throw error;
+      }
+
+      throw error;
     });
-  });
 };
