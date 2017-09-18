@@ -17,6 +17,7 @@ import {
   removeInstance as removeInstanceService,
   sendWelcomeMessage as sendWelcomeMessageService,
   authenticateApp as authenticateAppService,
+  getIntegrationBaseUrl as getIntegrationBaseUrlService,
 } from './sagas/apiCalls';
 import { connect as connectService } from './services/connectService';
 import { registerApplication as registerAppService } from './services/registerApplication';
@@ -80,6 +81,7 @@ export const initApp = initAppService;
 export const initUnauthenticatedApp = initUnauthenticatedAppService;
 export const getUserJWT = getUserJWTService;
 export const authorizeUser = authService;
+export const getIntegrationBaseUrl = getIntegrationBaseUrlService;
 
 // Export Views
 export const Home = HomeScreen;
