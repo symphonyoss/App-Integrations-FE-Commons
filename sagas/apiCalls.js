@@ -15,6 +15,8 @@ const baseAuthorizationUrl = `${baseUrl}/v1/application/${configurationId}/autho
 
 export const getAppName = () => appName;
 
+export const getIntegrationBaseUrl = () => baseUrl;
+
 export const getInstance = () => ({
   instanceId: null,
   name: '',
