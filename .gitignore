@@ -4,3 +4,7 @@ npm-debug.log*
 # Target directories
 node_modules/
 dist/
+
+package-lock.json
+ws-log-*
+ws-ls.json
