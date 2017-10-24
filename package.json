@@ -7,6 +7,7 @@
     "postinstall": "babel . --out-dir dist --ignore node_modules,dist,__mocks__,__tests__ --copy-files",
     "test": "jest",
     "semantic-release": "npm publish",
+    "whitesource": "node node_modules/whitesource/bin/whitesource.js run",
     "license-check": "node-license-validator --allow-licenses WTFPL Apache Apache-2 BSD-like BSD BSD-2-Clause BSD-3-Clause Apache-2.0 MIT ISC Unlicense MIT/X11 \"MIT / http://rem.mit-license.org\" \"Public Domain\""
   },
   "jest": {
@@ -24,7 +25,8 @@
     "identity-obj-proxy": "^3.0.0",
     "less": "^2.7.1",
     "node-license-validator": "^1.3.0",
-    "semantic-release": "^6.3.2"
+    "semantic-release": "^6.3.2",
+    "whitesource": "^1.0.9"
   },
   "dependencies": {
     "axios": "^0.15.3",

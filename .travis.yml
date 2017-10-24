@@ -35,7 +35,12 @@ before_install:
 
 script:
 # Install npm dependencies
-- "if [[ \"$TRAVIS_PULL_REQUEST\" = \"false\" && $TRAVIS_BRANCH =~ dev ]]; then npm install --production ; fi"
+- "if [[ \"$TRAVIS_PULL_REQUEST\" = \"false\" && $TRAVIS_BRANCH =~ dev ]]; then npm install ; fi"
+# Cannot run on external PRs due to https://docs.travis-ci.com/user/pull-requests/#Pull-Requests-and-Security-Restrictions
+- "if [[ $TRAVIS_PULL_REQUEST -eq 'false' ]]; then npm run whitesource; fi;"
+# Break the build, if any Whitesource policy violation is found
+- "if [[ -e 'ws-log-policy-violations.json' ]]; then echo 'Found Whitesource Policy violation, build failed.' ; exit -1; fi;"
+
 # Validate npmjs licenses
 # - "if [[ \"$TRAVIS_PULL_REQUEST\" = \"false\" && $TRAVIS_BRANCH =~ dev ]]; then npm run license-check ; fi"
 
