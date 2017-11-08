@@ -160,10 +160,13 @@ export const validateJwt = (jwt) => {
   return axios.post(url, payload);
 };
 
-export const getUserSession = (integrationUrl, jwt) => {
+export const getUserSession = (integrationUrl, jwt, initOAuth) => {
   const url = `${baseAuthorizationUrl}/userSession`;
   return axios.get(url, {
-    params: { integrationUrl: integrationUrl },
+    params: {
+      integrationUrl: integrationUrl,
+      initOAuth: initOAuth
+    },
     headers: {'Authorization': "Bearer " + jwt}
   });
 };
