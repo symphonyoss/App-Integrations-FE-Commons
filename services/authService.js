@@ -23,35 +23,31 @@ export const getUserJWT = () => {
   return Promise.resolve(userInfoCache.jwt);
 }
 
-export const sleep = (ms) => {
-  let start = new Date().getTime(), expire = start + ms;
-  while (new Date().getTime() < expire) { }
-  return;
-}
-
-export const pollUserInfo = (attempts, integrationUrl, token) => {
-  return getUserSession(integrationUrl, token, false)
-    .then(() => {
-      // 200 - OK, return to the previous flow
-      console.log('Returning true...');
-      return true;
-    })
-    .catch((error) => {
-      const response = error.response || {};
-      // 401, keep polling
-      if (response.status != 401) {
-        throw error;
-      }
-      // Setup the next poll recursively
-      if (++attempts < MAX_NUM_OF_ATTEMPTS) {
-        console.log('Attempt number ' + attempts);
-        sleep(MILLIS_TO_WAIT);
-        return pollUserInfo(attempts, integrationUrl, token);
-      } else {
-        console.log('Returning false...');
-        return false;
-      }
+export const pollUserInfo = (integrationUrl, token) => {
+    var attempts = 0;
+    var promise = new Promise(function(resolve) {
+        var interval = setInterval(() => {
+            getUserSession(integrationUrl, token, false)
+            .then(() => {
+                // 200 - OK, return to the previous flow
+                clearInterval(interval);
+                resolve(true);
+            })
+            .catch((error) => {
+                const response = error.response || {};
+                if (response.status !== 401) {
+                    clearInterval(interval);
+                    throw error;
+                }
+                // 401, keep polling
+                if (++attempts >= MAX_NUM_OF_ATTEMPTS) {
+                    clearInterval(interval);
+                    resolve(false);
+                }
+            })
+        }, MILLIS_TO_WAIT);
     });
+    return promise;
 }
 
 export const authorizeUser = (integrationUrl) => {
@@ -69,19 +65,14 @@ export const authorizeUser = (integrationUrl) => {
       });
     })
     .catch((error) => {
-      console.log('Error handling inside authorizeUser');
       const response = error.response || {};
       if (response.status == 401) {
-        console.log('Response 401');
         const userSession = response.data || {};
         const properties = userSession.properties || {};
         if (properties.authorizationUrl != undefined) {
-          console.log('There is a valid auth URL');
           if (openAuthorizationPopupWindow(properties.authorizationUrl)) {
-            console.log('Opening window');
             // we are polling this until we get a 200 or reach MAX_NUM_OF_ATTEMPTS
-            return pollUserInfo(0, integrationUrl, token).then((success) => {
-              console.log('Returning success: ' + success + ' and jwt: ' + token);
+            return pollUserInfo(integrationUrl, token).then((success) => {
               return Promise.resolve({
                 success: success,
                 jwt: token,
@@ -89,7 +80,6 @@ export const authorizeUser = (integrationUrl) => {
             });
           }
         }
-        console.log('Returning sucess == false');
         return Promise.resolve({
           success: false,
         });
