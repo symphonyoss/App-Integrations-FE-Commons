@@ -31,7 +31,10 @@ export const pollUserInfo = (integrationUrl, token) => {
             .then(() => {
                 // 200 - OK, return to the previous flow
                 clearInterval(interval);
-                resolve(true);
+                resolve({
+                  success: success,
+                  jwt: token,
+                });
             })
             .catch((error) => {
                 const response = error.response || {};
@@ -72,12 +75,7 @@ export const authorizeUser = (integrationUrl) => {
         if (properties.authorizationUrl != undefined) {
           if (openAuthorizationPopupWindow(properties.authorizationUrl)) {
             // we are polling this until we get a 200 or reach MAX_NUM_OF_ATTEMPTS
-            return pollUserInfo(integrationUrl, token).then((success) => {
-              return Promise.resolve({
-                success: success,
-                jwt: token,
-              });
-            });
+            return pollUserInfo(integrationUrl, token);
           }
         }
         return Promise.resolve({
