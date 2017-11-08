@@ -24,17 +24,16 @@ export const getUserJWT = () => {
 }
 
 export const pollUserInfo = (integrationUrl, token) => {
-    var attempts = 0;
-    var promise = new Promise(function(resolve) {
+    let attempts = 0;
+    let result = { success: false, jwt: token };
+    let promise = new Promise(function(resolve) {
         var interval = setInterval(() => {
             getUserSession(integrationUrl, token, false)
             .then(() => {
                 // 200 - OK, return to the previous flow
                 clearInterval(interval);
-                resolve({
-                  success: success,
-                  jwt: token,
-                });
+                result.success = true;
+                resolve(result);
             })
             .catch((error) => {
                 const response = error.response || {};
@@ -45,7 +44,7 @@ export const pollUserInfo = (integrationUrl, token) => {
                 // 401, keep polling
                 if (++attempts >= MAX_NUM_OF_ATTEMPTS) {
                     clearInterval(interval);
-                    resolve(false);
+                    resolve(result);
                 }
             })
         }, MILLIS_TO_WAIT);
@@ -75,7 +74,7 @@ export const authorizeUser = (integrationUrl) => {
         if (properties.authorizationUrl != undefined) {
           if (openAuthorizationPopupWindow(properties.authorizationUrl)) {
             // we are polling this until we get a 200 or reach MAX_NUM_OF_ATTEMPTS
-            return pollUserInfo(integrationUrl, token);
+            return pollUserInfo(integrationUrl, token).then((result) => { return result } );
           }
         }
         return Promise.resolve({
