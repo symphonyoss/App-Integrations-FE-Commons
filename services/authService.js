@@ -3,7 +3,7 @@ import {
 } from '../sagas/apiCalls';
 
 let userInfoCache = {};
-let MILLIS_TO_WAIT = 2000;
+let MILLIS_TO_WAIT = 1000;
 let MAX_NUM_OF_ATTEMPTS = 10;
 
 export const openAuthorizationPopupWindow = (url) => {
