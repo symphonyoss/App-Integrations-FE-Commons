@@ -45,6 +45,7 @@ export const Utils = (function utils() {
           instanceId: rawInstanceList[obj].instanceId,
           name: rawInstanceList[obj].name,
           lastPosted: op.lastPostedDate ? timestampToDate(op.lastPostedDate) : 'not available',
+          lastPostedDate: op.lastPostedDate,
           created: rawInstanceList[obj].createdDate ?
             timestampToDate(rawInstanceList[obj].createdDate) : 'not available',
           streamType: op.streamType,
