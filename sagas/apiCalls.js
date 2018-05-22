@@ -103,7 +103,7 @@ export const editInstance = (state) => {
       opStreams += `, "${stream}"`;
     }
   });
-  const optionalProperties = `{"owner": "${state.userId}", "streams": [${opStreams}], "streamType": "${state.instance.streamType}", "lastPostedDate": "${state.instance.lastPostedDate}"}`;
+  const optionalProperties = `{"owner": "${state.userId}", "streams": [${opStreams}], "streamType": "${state.instance.streamType}"}`;
   // build payload
   const payload = {
     instanceId: state.instance.instanceId,
