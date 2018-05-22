@@ -40,14 +40,15 @@ export const Utils = (function utils() {
     let op; // parsed optional properties
     for (const obj in rawInstanceList) {
       if (obj) {
-        op = JSON.parse(rawInstanceList[obj].optionalProperties);
+        const instance = rawInstanceList[obj];
+        op = JSON.parse(instance.optionalProperties);
+        let lastPosted = instance.lastModifiedDate || op.lastPostedDate;
         instances.push({
-          instanceId: rawInstanceList[obj].instanceId,
-          name: rawInstanceList[obj].name,
-          lastPosted: op.lastPostedDate ? timestampToDate(op.lastPostedDate) : 'not available',
-          lastPostedDate: op.lastPostedDate,
-          created: rawInstanceList[obj].createdDate ?
-            timestampToDate(rawInstanceList[obj].createdDate) : 'not available',
+          instanceId: instance.instanceId,
+          name: instance.name,
+          lastPosted: lastPosted ? timestampToDate(lastPosted) : 'not available',
+          created: instance.createdDate ?
+            timestampToDate(instance.createdDate) : 'not available',
           streamType: op.streamType,
           streams: op.streams || [],
           postingLocationRooms: [],
